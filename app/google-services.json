@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "724465683743",
+    "project_id": "healthwise-project",
+    "storage_bucket": "healthwise-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724465683743:android:fd182bfc9387157cdef42a",
+        "android_client_info": {
+          "package_name": "com.example.healthwise_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724465683743-09uglcoiu48tfkm7mrs1mml3b2uhvbue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8YGgk3QvNE4pdKYfn8C6200OZ2ZFOV4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724465683743-09uglcoiu48tfkm7mrs1mml3b2uhvbue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
