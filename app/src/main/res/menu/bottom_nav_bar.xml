@@ -10,9 +10,9 @@
         android:icon="@drawable/baseline_calendar_month_24"
         android:title="Appointment" />
     <item
-        android:id="@+id/healthRecordItem"
-        android:icon="@drawable/baseline_library_books_24"
-        android:title="Health Record" />
+        android:id="@+id/historyItem"
+        android:icon="@drawable/sharp_access_time_filled_24"
+        android:title="History" />
     <item
         android:id="@+id/accountItem"
         android:icon="@drawable/baseline_account_circle_24"

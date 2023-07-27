@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -62,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
 
-                if (id == R.id.healthRecordItem)
+                if (id == R.id.historyItem)
                 {
-                    actionBar.setTitle("Health Record Page");
-                    loadFragments(new HealthRecordFragment());
-                    Toast.makeText(MainActivity.this, "Switching Health Record Page!", Toast.LENGTH_SHORT).show();
+                    actionBar.setTitle("Appointment History Page");
+                    loadFragments(new HistoryFragment());
+                    Toast.makeText(MainActivity.this, "Switching History Page!", Toast.LENGTH_SHORT).show();
 
                     return true;
                 }
