@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     FrameLayout HW_FrameLayout;
@@ -72,11 +74,21 @@ public class MainActivity extends AppCompatActivity {
 
                 if (id == R.id.accountItem)
                 {
-                    actionBar.setTitle("Account Page");
-                    loadFragments(new AccountFragment());
-                    Toast.makeText(MainActivity.this, "Switching Account Page!", Toast.LENGTH_SHORT).show();
+                    FirebaseAuth auth = FirebaseAuth.getInstance();
+                    FirebaseUser user = auth.getCurrentUser();
+                    if (user != null)
+                    {
+                        actionBar.setTitle("Account Page");
+                        loadFragments(new AccountDetailFragment());
+                        return true;
+                    }
+                    else {
+                        actionBar.setTitle("Account Page");
+                        loadFragments(new AccountFragment());
+                        Toast.makeText(MainActivity.this, "Switching Account Page!", Toast.LENGTH_SHORT).show();
 
-                    return true;
+                        return true;
+                    }
                 }
 
                 return false;
@@ -86,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadFragments(Fragment fragment)
     {
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.btmHW_Layout,fragment);
         ft.commit();
