@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +33,8 @@ public class AccountDetailFragment extends Fragment {
 
     String name, healthRecord, appointment;
     TextView tvHealthRecord, tvUN, tvYourAppointment;
+
+    ImageView imageAva;
     Button btnLogOut;
     FirebaseAuth auth;
     // TODO: Rename parameter arguments, choose names that match
@@ -84,6 +87,7 @@ public class AccountDetailFragment extends Fragment {
         tvHealthRecord = (TextView) view.findViewById(R.id.tvHealthRecord);
         tvYourAppointment = (TextView) view.findViewById(R.id.tvYourAppointment);
         btnLogOut = (Button) view.findViewById(R.id.btnLogOut);
+        imageAva = (ImageView) view.findViewById(R.id.imageView);
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -100,6 +104,12 @@ public class AccountDetailFragment extends Fragment {
             }
         });
 
+        imageAva.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragments(new UploadUserAvatar());
+            }
+        });
         return view;
     }
     public  void showUserProfile(FirebaseUser firebaseUser)

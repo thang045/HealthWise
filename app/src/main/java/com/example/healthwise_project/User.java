@@ -1,5 +1,7 @@
 package com.example.healthwise_project;
 
+import android.widget.ImageView;
+
 public class User {
     public String userName, healthRecord, yourAppointment;
 
@@ -7,6 +9,7 @@ public class User {
         this.userName = userName;
         this.healthRecord = healthRecord;
         this.yourAppointment = yourAppointment;
+
     }
     public User()
     {
