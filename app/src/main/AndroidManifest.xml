@@ -13,6 +13,9 @@
         android:theme="@style/Theme.HealthWise_Project"
         tools:targetApi="31">
         <activity
+            android:name=".HistoryApp"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
