@@ -37,7 +37,7 @@ public class customAdapterApp extends ArrayAdapter {
             convertView = LayoutInflater.from(ctx).inflate(layoutItem, null);
         }
         TextView tvDate = (TextView) convertView.findViewById(R.id.tvDate);
-
+        return  convertView;
     }
 
 }
