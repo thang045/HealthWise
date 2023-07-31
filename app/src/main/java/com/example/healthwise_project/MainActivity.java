@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadFragments(Fragment fragment)
     {
-
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.btmHW_Layout,fragment);
         ft.commit();
