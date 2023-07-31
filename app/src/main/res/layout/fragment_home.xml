@@ -45,7 +45,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textColorHint="@color/black"
-                android:hint="Full Name..."/>
+                android:hint="username..."/>
         </LinearLayout>
 
         <LinearLayout
