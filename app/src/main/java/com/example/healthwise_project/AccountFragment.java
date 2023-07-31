@@ -1,12 +1,30 @@
 package com.example.healthwise_project;
 
+import static android.content.ContentValues.TAG;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +33,9 @@ import android.view.ViewGroup;
  */
 public class AccountFragment extends Fragment {
 
+    Button btnSignIn, btnSignUp;
+    EditText edtUS, edtPW;
+    FirebaseAuth auth;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,6 +58,8 @@ public class AccountFragment extends Fragment {
      * @return A new instance of fragment AccountFragment.
      */
     // TODO: Rename and change types and number of parameters
+
+
     public static AccountFragment newInstance(String param1, String param2) {
         AccountFragment fragment = new AccountFragment();
         Bundle args = new Bundle();
@@ -49,6 +72,9 @@ public class AccountFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -56,9 +82,79 @@ public class AccountFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null)
+        {
+            return;
+        }
+    }
+
+    @SuppressLint("MissingInflatedId")
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
+
+        auth = FirebaseAuth.getInstance();
+        btnSignIn = view.findViewById(R.id.btnSignIn);
+        btnSignUp = view.findViewById(R.id.btnSignUp);
+        edtUS = view.findViewById(R.id.edtUS);
+        edtPW = view.findViewById(R.id.edtPW);
+
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email, password;
+                email = String.valueOf(edtUS.getText());
+                password = String.valueOf(edtPW.getText());
+
+                if (TextUtils.isEmpty(email))
+                {
+                    Toast.makeText(getActivity(), "Wrong username!", Toast.LENGTH_SHORT).show();
+                    edtUS.requestFocus();
+                } else if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(getActivity(), "Wrong password!", Toast.LENGTH_SHORT).show();
+                    edtPW.requestFocus();
+                }
+                auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser user = auth.getCurrentUser();
+                                    loadFragments(new AccountDetailFragment());
+                                    Toast.makeText(getActivity(), "Welcome!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getActivity(), "Wrong username or password!", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        });
+            }
+
+        });
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragments(new SignUpFragment());
+            }
+        });
+
+
+        return view;
     }
+
+    public void loadFragments(Fragment fragment)
+    {
+
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.btmHW_Layout,fragment);
+        ft.commit();
+    }
+
 }
