@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 {
                     actionBar.setTitle("Home Page");
                     loadFragments(new HomeFragment());
-                    Toast.makeText(MainActivity.this, "Switching Home Page!", Toast.LENGTH_SHORT).show();
 
                     return true;
                 }
@@ -58,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 {
                     actionBar.setTitle("Appointment Page");
                     loadFragments(new AppointmentFragment());
-                    Toast.makeText(MainActivity.this, "Switching Appointment Page!", Toast.LENGTH_SHORT).show();
 
                     return true;
                 }
@@ -67,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 {
                     actionBar.setTitle("Appointment History Page");
                     loadFragments(new HistoryFragment());
-                    Toast.makeText(MainActivity.this, "Switching History Page!", Toast.LENGTH_SHORT).show();
 
                     return true;
                 }
@@ -85,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         actionBar.setTitle("Account Page");
                         loadFragments(new AccountFragment());
-                        Toast.makeText(MainActivity.this, "Switching Account Page!", Toast.LENGTH_SHORT).show();
 
                         return true;
                     }
