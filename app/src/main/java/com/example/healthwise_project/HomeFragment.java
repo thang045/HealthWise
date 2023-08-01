@@ -1,5 +1,6 @@
 package com.example.healthwise_project;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 /**
@@ -27,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeFragment extends Fragment {
     String userName;
     TextView tvRetrieveName;
+    TextView tvUpcomingAppointment, tvDoctor, tvTime;
     FirebaseAuth auth;
 
     DatabaseReference myRef;
@@ -71,6 +75,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,6 +83,9 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
         tvRetrieveName = (TextView) view.findViewById(R.id.tvRetrieveName);
+        tvUpcomingAppointment = (TextView) view.findViewById(R.id.tvUpcomingAppointment);
+        tvTime = (TextView) view.findViewById(R.id.tvDateTime);
+        tvDoctor = (TextView) view.findViewById(R.id.tvDoctor);
 
         //get Current User form Firebase
         auth = FirebaseAuth.getInstance();
@@ -86,16 +94,13 @@ public class HomeFragment extends Fragment {
         if (firebaseUser1 != null)
         {
             showUserProfile(firebaseUser1);
+            getAppointmentQuantity(firebaseUser1);
         }
+
         return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        final TextView tvRetrieveName = view.findViewById(R.id.tvRetrieveName);
 
     }
+
     public  void showUserProfile(FirebaseUser firebaseUser)
     {
         //get Current User ID from Registered Users table
@@ -116,6 +121,26 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
+    public void getAppointmentQuantity(FirebaseUser firebaseUser) {
+        String userID = firebaseUser.getUid();
+        myRef = FirebaseDatabase.getInstance("https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Appointments");
+
+        Query query = myRef.orderByChild("userID").equalTo(userID);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int appointmentCount = (int) dataSnapshot.getChildrenCount();
+                tvUpcomingAppointment.setText("Quantity appointments: " + appointmentCount);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle errors
             }
         });
     }

@@ -138,7 +138,7 @@ public class AccountDetailFragment extends Fragment {
                     userName = userDetail.getRealName();
 
                     tvUN.setText(name);
-                    tvHealthRecord.setText(healthRecord);
+//                    tvHealthRecord.setText(healthRecord);
                     tvName.setText(userName);
 
                     //Display avatar
