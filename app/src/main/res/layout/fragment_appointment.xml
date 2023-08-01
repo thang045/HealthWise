@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#283896E1"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
+
                 android:text="Date and Time: " />
 
             <Button
@@ -31,6 +33,7 @@
                 android:layout_weight="1"
                 android:textSize="4pt"
                 android:layout_marginHorizontal="10pt"
+                android:backgroundTint="@color/blue"
                 android:text="Choose date and time" />
 
         </LinearLayout>
@@ -42,6 +45,7 @@
             android:textSize="10pt"
             android:textStyle="bold"
             android:gravity="center"
+            android:background="#6DCFCECE"
             android:text="TextView" />
 
         <LinearLayout
@@ -57,6 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:text="Name:" />
 
             <EditText
@@ -83,6 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:text="Phone:" />
 
             <EditText
@@ -109,6 +117,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:text="Symptoms:" />
 
             <EditText
@@ -126,8 +136,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8pt"
-            android:layout_marginVertical="5pt"
-            android:padding="6pt"
+            android:layout_marginVertical="3pt"
+            android:padding="5pt"
+            android:background="@drawable/homepage_layout"
             android:orientation="vertical">
 
             <TextView
@@ -137,7 +148,9 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:padding="5pt"
-                android:textSize="10pt"
+                android:textSize="8pt"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:text="Doctor:" />
 
             <Spinner
@@ -147,13 +160,16 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:layout_marginVertical="8pt"
+                android:background="@drawable/homepage_layout_1"
                 android:spinnerMode="dropdown" />
         </LinearLayout>
 
         <Button
             android:id="@+id/btnAddAppointment"
-            android:layout_width="match_parent"
+            android:layout_width="100pt"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            android:layout_gravity="center"
             android:text="Add appointment" />
 
     </LinearLayout>
