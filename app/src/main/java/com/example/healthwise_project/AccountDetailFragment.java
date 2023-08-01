@@ -35,7 +35,7 @@ public class AccountDetailFragment extends Fragment {
     String name, healthRecord, userName;
     TextView tvHealthRecord, tvUN, tvName;
     ImageView imageAva;
-    Button btnLogOut, btnChangePassword, btnChangeAvatar_AccDetail;
+    Button btnLogOut, btnChangePassword;
     FirebaseAuth auth;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,8 +87,8 @@ public class AccountDetailFragment extends Fragment {
         tvHealthRecord = (TextView) view.findViewById(R.id.tvHealthRecord);
         tvName = (TextView) view.findViewById(R.id.tvName);
         btnLogOut = (Button) view.findViewById(R.id.btnLogOut);
-        btnChangeAvatar_AccDetail = (Button) view.findViewById(R.id.btnChangeAvatar_AccDetail);
-        imageAva = (ImageView) view.findViewById(R.id.imageView);
+        btnChangePassword = (Button) view.findViewById(R.id.btnGoChangePassword);
+        imageAva = (ImageView) view.findViewById(R.id.imageAva);
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -104,8 +104,13 @@ public class AccountDetailFragment extends Fragment {
                 loadFragments(new AccountFragment());
             }
         });
-
-        btnChangeAvatar_AccDetail.setOnClickListener(new View.OnClickListener() {
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragments(new ChangePassword());
+            }
+        });
+        imageAva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -120,7 +125,7 @@ public class AccountDetailFragment extends Fragment {
     {
         String userID = firebaseUser.getUid();
         DatabaseReference reference = FirebaseDatabase.getInstance(
-                "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Registered Users");
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -2,11 +2,22 @@ package com.example.healthwise_project;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +25,11 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+    String userName;
+    TextView tvRetrieveName;
+    FirebaseAuth auth;
+
+    DatabaseReference myRef;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +77,46 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment"
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
+        tvRetrieveName = (TextView) view.findViewById(R.id.tvRetrieveName);
+
+        //get Current User form Firebase
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser1 = auth.getCurrentUser();
+
+        if (firebaseUser1 != null)
+        {
+            showUserProfile(firebaseUser1);
+        }
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        final TextView tvRetrieveName = view.findViewById(R.id.tvRetrieveName);
+
+    }
+    public  void showUserProfile(FirebaseUser firebaseUser)
+    {
+        //get Current User ID from Registered Users table
+        String userID = firebaseUser.getUid();
+        myRef = FirebaseDatabase.getInstance(
+                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Registered Users");
+        myRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userDetail = snapshot.getValue(User.class);
+                if (userDetail != null)
+                {
+                    userName = firebaseUser.getEmail();
+                    tvRetrieveName.setText(userName);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
