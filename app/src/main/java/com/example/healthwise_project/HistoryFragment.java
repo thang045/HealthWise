@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,11 +15,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.text.DateFormat;
@@ -33,12 +38,12 @@ import java.util.Date;
  * create an instance of this fragment.
  */
 public class HistoryFragment extends Fragment {
-    ArrayList<String> doctorNameArrayList = new ArrayList<>();
-    ArrayList<Date>dateArrList = new ArrayList<>();
+    String name;
+    Date date;
+    TextView userName,tvDate, tvTime;
+    FirebaseAuth auth;
+    DatabaseReference myRef;
     ListView lvHistory;
-    ArrayList<Appointment> arrayListAppointments = new ArrayList<Appointment>();
-    ArrayList<Date> listDate = new ArrayList<>();
-    ArrayList<String> listDocName = new ArrayList<>();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -82,39 +87,47 @@ public class HistoryFragment extends Fragment {
 
     }
 
-    public void getDataFromDB(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance("");
-        DatabaseReference myRef = database.getReference("Appointment");
-    }
-
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
+
+        userName = (TextView) view.findViewById(R.id.tvUsername);
+        tvDate = (TextView) view.findViewById(R.id.tvDate);
+        tvTime =(TextView) view.findViewById(R.id.tvTime);
         lvHistory = (ListView) view.findViewById(R.id.lvHistory);
+        auth = FirebaseAuth.getInstance() ;
+        FirebaseUser fbuser1 = auth.getCurrentUser();
+        
+        if(fbuser1 != null){
+            showAppointments(fbuser1);
+        }
 
-
-        String[] lsname = new String[]{"Kien", "Thang", "Thinh"};
-        Date lsDate = new Date();
-        String[] lsDoc = new String[] {"bs1","bs2","bs3"};
-
-
-        //adapter = new customAdapterApp(HistoryFragment.this.getActivity(), R.layout.activity_lv_history_app, arrayAppList);
-        lvHistory.setAdapter(adapter);
         return view;
     }
 
-    public void loadDataFromFB(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://console.firebase.google.com/project/healthwise-project/database/healthwise-project-default-rtdb/data/~2F");
-        DatabaseReference myRef = database.getReference("Appointments");
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 
-        myRef.addValueEventListener(new ValueEventListener() {
+    public void showAppointments(FirebaseUser fbUser){
+        String userID = fbUser.getUid();
+        myRef = FirebaseDatabase.getInstance(
+                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Appointments");
+
+        myRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Appointment appDetail = snapshot.getValue(Appointment.class);
+                Appointment AppDetail = snapshot.getValue(Appointment.class);
+                if(AppDetail != null){
+                    name = fbUser.getDisplayName();
 
+                    userName.setText(name);
+                }
             }
 
             @Override

@@ -45,7 +45,7 @@ public class customAdapterApp extends BaseAdapter{
         View view;
 
         if(convertView ==null){
-            view = LayoutInflater.from(getContext()).inflate(R.layout.activity_lv_history_app,parent,false);
+            view = LayoutInflater.from(context).inflate(R.layout.activity_lv_history_app,parent,false);
         } else{
             view = convertView;
         }

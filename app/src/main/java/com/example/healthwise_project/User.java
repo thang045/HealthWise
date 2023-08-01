@@ -1,14 +1,12 @@
 package com.example.healthwise_project;
 
-import android.widget.ImageView;
-
 public class User {
-    public String userName, healthRecord, yourAppointment;
+    public String userName, healthRecord, realName;
 
-    public User(String userName, String healthRecord, String yourAppointment) {
+    public User(String userName, String healthRecord, String realName) {
         this.userName = userName;
         this.healthRecord = healthRecord;
-        this.yourAppointment = yourAppointment;
+        this.realName = realName;
 
     }
     public User()
@@ -32,11 +30,11 @@ public class User {
         this.healthRecord = healthRecord;
     }
 
-    public String getYourAppointment() {
-        return yourAppointment;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setYourAppointment(String yourAppointment) {
-        this.yourAppointment = yourAppointment;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 }

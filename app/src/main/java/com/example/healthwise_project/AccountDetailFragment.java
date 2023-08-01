@@ -1,6 +1,8 @@
 package com.example.healthwise_project;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,8 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,11 +32,10 @@ import org.w3c.dom.Text;
  */
 public class AccountDetailFragment extends Fragment {
 
-    String name, healthRecord, appointment;
-    TextView tvHealthRecord, tvUN, tvYourAppointment;
-
+    String name, healthRecord, userName;
+    TextView tvHealthRecord, tvUN, tvName;
     ImageView imageAva;
-    Button btnLogOut;
+    Button btnLogOut, btnChangePassword, btnChangeAvatar_AccDetail;
     FirebaseAuth auth;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,8 +85,9 @@ public class AccountDetailFragment extends Fragment {
 
         tvUN = (TextView) view.findViewById(R.id.tvUN);
         tvHealthRecord = (TextView) view.findViewById(R.id.tvHealthRecord);
-        tvYourAppointment = (TextView) view.findViewById(R.id.tvYourAppointment);
+        tvName = (TextView) view.findViewById(R.id.tvName);
         btnLogOut = (Button) view.findViewById(R.id.btnLogOut);
+        btnChangeAvatar_AccDetail = (Button) view.findViewById(R.id.btnChangeAvatar_AccDetail);
         imageAva = (ImageView) view.findViewById(R.id.imageView);
 
         auth = FirebaseAuth.getInstance();
@@ -104,12 +105,15 @@ public class AccountDetailFragment extends Fragment {
             }
         });
 
-        imageAva.setOnClickListener(new View.OnClickListener() {
+        btnChangeAvatar_AccDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragments(new UploadUserAvatar());
+
+                Intent intent = new Intent(getActivity(),UploadUserAvatar1.class);
+                startActivity(intent);
             }
         });
+
         return view;
     }
     public  void showUserProfile(FirebaseUser firebaseUser)
@@ -126,11 +130,16 @@ public class AccountDetailFragment extends Fragment {
                 {
                     name = firebaseUser.getEmail();
                     healthRecord = userDetail.getHealthRecord();
-                    appointment = userDetail.getYourAppointment();
+                    userName = userDetail.getRealName();
 
                     tvUN.setText(name);
                     tvHealthRecord.setText(healthRecord);
-                    tvYourAppointment.setText(appointment);
+                    tvName.setText(userName);
+
+                    //Display avatar
+                    Uri uri = firebaseUser.getPhotoUrl();
+                    imageAva.setImageURI(uri);
+                    Picasso.get().load(uri).into(imageAva);
                 }
             }
 

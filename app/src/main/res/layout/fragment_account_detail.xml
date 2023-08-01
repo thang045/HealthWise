@@ -9,8 +9,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="530dp"
-        android:background="#5CC09F"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
         android:orientation="vertical">
 
         <ImageView
@@ -19,41 +19,136 @@
             android:layout_height="155dp"
             android:src="@drawable/baseline_account_circle_24" />
 
-        <TextView
-            android:id="@+id/tvUN"
+        <Button
+            android:id="@+id/btnChangeAvatar_AccDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="40sp"
-            android:text="TextView" />
+            android:text="Change Avatar" />
 
         <TextView
-            android:id="@+id/tvHealthRecord"
-            android:layout_width="match_parent"
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp"
+            android:layout_gravity="center"
+            android:text="Click the icon to change your avatar" />
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="350sp"
+            android:layout_height="300sp"
+            android:layout_gravity="center"
             android:layout_marginTop="20sp"
-            android:text="TextView" />
+            app:cardCornerRadius="5dp">
 
-        <TextView
-            android:id="@+id/tvYourAppointment"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100sp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_marginRight="20sp"
+                        android:src="@drawable/mail" />
+
+                    <TextView
+                        android:id="@+id/tvUN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="TextView"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100sp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_marginRight="20sp"
+                        android:src="@drawable/username" />
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="TextView"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100sp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_marginRight="20sp"
+                        android:src="@drawable/healthrecord" />
+
+                    <TextView
+                        android:id="@+id/tvHealthRecord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="TextView"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="40sp"
-            android:layout_marginTop="20sp"
-            android:text="TextView" />
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/btnGoChangePassword"
+                android:layout_width="150dp"
+                android:layout_height="61dp"
+                android:layout_marginRight="40sp"
+                android:text="Change Password" />
+
+            <Button
+                android:id="@+id/btnEditProfile"
+                android:layout_width="150dp"
+                android:layout_height="61dp"
+                android:text="Change NAme" />
+
+
+
+        </LinearLayout>
         <Button
             android:id="@+id/btnLogOut"
-            android:layout_marginTop="20sp"
-            android:layout_width="wrap_content"
+            android:layout_width="200sp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Log Out" />
-        <Button
-            android:id="@+id/btnChangePassword"
-            android:layout_marginTop="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change Password" />
+
+
+
     </LinearLayout>
 
 </FrameLayout>

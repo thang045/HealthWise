@@ -1,5 +1,6 @@
 package com.example.healthwise_project;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,6 +103,7 @@ public class SignUpFragment extends Fragment {
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>()
                         {
+                            @SuppressLint("SetTextI18n")
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task)
                             {
@@ -121,7 +125,7 @@ public class SignUpFragment extends Fragment {
                                 else
                                 {
                                     try {
-                                        throw task.getException();
+                                        throw Objects.requireNonNull(task.getException());
                                     }
                                     catch (FirebaseAuthInvalidCredentialsException e)
                                     {

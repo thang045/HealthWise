@@ -1,5 +1,6 @@
 package com.example.healthwise_project;
 
+
 import com.google.type.DateTime;
 
 import java.lang.reflect.Array;
@@ -10,14 +11,35 @@ import java.util.Date;
 
 public class Appointment {
     int id;
-    String name, phone, sympton;
-    Date datetime;
+
+
+
+    int idDoctor ;
+    String name, phone, symptoms,idUser;
+    String datetime;
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdDoctor() {
+        return idDoctor;
+    }
+
+    public void setIdDoctor(int idDoctor) {
+        this.idDoctor = idDoctor;
     }
 
     public String getName() {
@@ -36,36 +58,37 @@ public class Appointment {
         this.phone = phone;
     }
 
-    public String getSympton() {
-        return sympton;
+    public String getSymptoms() {
+        return symptoms;
     }
 
-    public void setSympton(String sympton) {
-        this.sympton = sympton;
+    public void setSymptoms(String symptoms) {
+        this.symptoms = symptoms;
     }
 
-    public Date getDatetime() {
+    public String getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(Date datetime) {
+    public void setDatetime(String datetime) {
         this.datetime = datetime;
     }
 
-    public Appointment(int id, String name, String phone, String sympton, Date datetime) {
+    public Appointment(int id, String name, String phone, String symptoms, String datetime,
+                       int idDoctor, String idUser) {
         this.id = id;
         this.name = name;
         this.phone = phone;
-        this.sympton = sympton;
+        this.symptoms = symptoms;
         this.datetime = datetime;
+        this.idDoctor = idDoctor;
+        this.idUser = idUser;
     }
 
-//    public static ArrayList<Appointment>initAppData(int[] lsid, String[] lsname, String[] lsphone, String[] lssympton, Date lsdate){
-//        ArrayList<Appointment> appList =new ArrayList<Appointment>();
-//        for(int i =0; i<lsid.length;i++){
-//            Appointment app = new Appointment(lsid[i], lsname[i], lsphone[i], lssympton[i], lsdate);
-//            appList.add(app);
-//        }
-//        return  appList;
-//     };
+    public Appointment()
+    {
+
+    }
+
+
 }
