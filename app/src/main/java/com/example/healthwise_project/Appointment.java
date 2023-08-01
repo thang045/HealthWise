@@ -1,12 +1,12 @@
 package com.example.healthwise_project;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Appointment {
     int id;
-    String name, phone, sympton;
+
+    int idDoctor;
+    String name, phone, symptoms;
     Date datetime;
     public int getId() {
         return id;
@@ -14,6 +14,14 @@ public class Appointment {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdDoctor() {
+        return idDoctor;
+    }
+
+    public void setIdDoctor(int idDoctor) {
+        this.idDoctor = idDoctor;
     }
 
     public String getName() {
@@ -32,12 +40,12 @@ public class Appointment {
         this.phone = phone;
     }
 
-    public String getSympton() {
-        return sympton;
+    public String getSymptoms() {
+        return symptoms;
     }
 
-    public void setSympton(String sympton) {
-        this.sympton = sympton;
+    public void setSymptoms(String symptoms) {
+        this.symptoms = symptoms;
     }
 
     public Date getDatetime() {
@@ -48,12 +56,14 @@ public class Appointment {
         this.datetime = datetime;
     }
 
-    public Appointment(int id, String name, String phone, String sympton, Date datetime) {
+    public Appointment(int id, String name, String phone, String symptoms, Date datetime,
+                       int idDoctor) {
         this.id = id;
         this.name = name;
         this.phone = phone;
-        this.sympton = sympton;
+        this.symptoms = symptoms;
         this.datetime = datetime;
+        this.idDoctor = idDoctor;
     }
 
     public Appointment()
