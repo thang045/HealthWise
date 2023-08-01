@@ -18,6 +18,9 @@
             android:name=".UploadUserAvatar1"
             android:exported="false" />
         <activity
+            android:name=".HistoryApp"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

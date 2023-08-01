@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     {
         HW_FrameLayout = (FrameLayout) findViewById(R.id.btmHW_Layout);
         HW_BtmNavView = (BottomNavigationView) findViewById(R.id.btmHW_Nav);
+
     }
 
     private void addEvents()
