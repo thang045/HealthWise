@@ -125,22 +125,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5pt"
             android:layout_marginHorizontal="8pt"
-            android:orientation="horizontal">
+            android:layout_marginVertical="5pt"
+            android:padding="6pt"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView11"
-                android:layout_width="10pt"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
+                android:gravity="left|center"
+                android:padding="5pt"
+                android:textSize="10pt"
                 android:text="Doctor:" />
+
             <Spinner
-                android:layout_width="wrap_content"
+                android:id="@+id/spnDropdown_Appointment"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ems="10"
-                android:layout_weight="1"/>
+                android:layout_marginVertical="8pt"
+                android:spinnerMode="dropdown" />
         </LinearLayout>
 
     </LinearLayout>
