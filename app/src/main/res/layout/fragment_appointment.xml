@@ -112,7 +112,7 @@
                 android:text="Symptoms:" />
 
             <EditText
-                android:id="@+id/editTextText"
+                android:id="@+id/edtSymptoms_Appointment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -149,6 +149,12 @@
                 android:layout_marginVertical="8pt"
                 android:spinnerMode="dropdown" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAddAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add appointment" />
 
     </LinearLayout>
 </FrameLayout>

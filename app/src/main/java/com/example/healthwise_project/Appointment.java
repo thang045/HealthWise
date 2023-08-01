@@ -1,13 +1,19 @@
 package com.example.healthwise_project;
 
-import java.util.Date;
-
 public class Appointment {
     int id;
+    int idDoctor ;
+    String name, phone, symptoms,idUser;
+    String datetime;
 
-    int idDoctor;
-    String name, phone, symptoms;
-    Date datetime;
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
     public int getId() {
         return id;
     }
@@ -48,22 +54,23 @@ public class Appointment {
         this.symptoms = symptoms;
     }
 
-    public Date getDatetime() {
+    public String getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(Date datetime) {
+    public void setDatetime(String datetime) {
         this.datetime = datetime;
     }
 
-    public Appointment(int id, String name, String phone, String symptoms, Date datetime,
-                       int idDoctor) {
+    public Appointment(int id, String name, String phone, String symptoms, String datetime,
+                       int idDoctor, String idUser) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.symptoms = symptoms;
         this.datetime = datetime;
         this.idDoctor = idDoctor;
+        this.idUser = idUser;
     }
 
     public Appointment()

@@ -1,5 +1,6 @@
 package com.example.healthwise_project;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -12,20 +13,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,13 +45,17 @@ public class AppointmentFragment extends Fragment {
 
     ArrayList<String> doctorNameArrayList = new ArrayList<>(), departmentArrayList = new ArrayList<>();
     Calendar date;
-    Button btnDateTimePicker;
+    String selectedDate = "", selectedTime = "";
+    Button btnDateTimePicker, btnAddAppointment;
     Spinner spnDropdown_Appointment;
     TextView tvDateTime;
+    EditText edtName_Appointment, edtPhone_Appointment, edtSymptoms_Appointment;
 
     CustomSpinnerAdapter adapter;
+    FirebaseAuth firebaseAuth;
 
-    ArrayList<Doctor> doctorArrayList = new ArrayList<>();
+    ArrayList<Doctor> doctorArrayList = new ArrayList<Doctor>();
+    ArrayList<Appointment> appointmentArrayList = new ArrayList<Appointment>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,16 +97,22 @@ public class AppointmentFragment extends Fragment {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_appointment, container, false);
 
         btnDateTimePicker = (Button) view.findViewById(R.id.btnDateTimePicker);
+        btnAddAppointment = (Button) view.findViewById(R.id.btnAddAppointment);
         tvDateTime = (TextView) view.findViewById(R.id.tvDateTime);
         spnDropdown_Appointment = (Spinner) view.findViewById(R.id.spnDropdown_Appointment);
+        edtName_Appointment = (EditText) view.findViewById(R.id.edtName_Appointment);
+        edtPhone_Appointment = (EditText) view.findViewById(R.id.edtPhone_Appointment);
+        edtSymptoms_Appointment = (EditText) view.findViewById(R.id.edtSymptoms_Appointment);
 
         loadDataFromFirebase();
 
@@ -103,8 +122,45 @@ public class AppointmentFragment extends Fragment {
                 showDateTimePicker();
             }
         });
+        btnAddAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://healthwise-project" +
+                        "-default-rtdb.asia-southeast1.firebasedatabase.app");
+                DatabaseReference appointmentsRef = database.getReference("Appointments");
 
+
+                String name = edtName_Appointment.getText().toString();
+                String phone = edtPhone_Appointment.getText().toString();
+                String symptoms = edtSymptoms_Appointment.getText().toString();
+                Doctor selectedDoctor =
+                        getDoctor(spnDropdown_Appointment.getSelectedItemPosition());
+                int idDoctor = selectedDoctor.id;
+                int id = appointmentArrayList.size() + 1;
+
+                firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                String idUser = firebaseUser.getUid();
+
+                if (name.isEmpty() || phone.isEmpty() || symptoms.isEmpty() || selectedDate.isEmpty() || selectedTime.isEmpty()){
+                    Toast.makeText(getContext(), "Please don't leave any credentials empty!",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        Appointment appointment = new Appointment(id, name, phone, symptoms,
+                                selectedTime + " " + selectedDate,
+                                idDoctor, idUser);
+                        appointmentsRef.child("Appointment_" + (appointmentArrayList.size() + 1)).setValue(appointment);
+                    }catch (Exception e){
+                        Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                    }
+                    }
+            }
+        });
         return view;
+    }
+    public Doctor getDoctor(int position){
+        return doctorArrayList.get(position);
     }
 
     //Date and Time picker function
@@ -209,10 +265,11 @@ public class AppointmentFragment extends Fragment {
                                 AM_PM = "Error";
                                 break;
                         }
-
-                        tvDateTime.setText(dayOfWeek + ", " + month +
-                                " " + date.get(Calendar.DAY_OF_MONTH) +
-                                "\n" + date.get(Calendar.HOUR) + ":" + date.get(Calendar.MINUTE) + " " + AM_PM);
+                        selectedDate = dayOfWeek + ", " + month +
+                                " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
+                        selectedTime =
+                                date.get(Calendar.HOUR) + ":" + date.get(Calendar.MINUTE) + " " + AM_PM;
+                        tvDateTime.setText(selectedDate + "\n" + selectedTime);
                     }
                 }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), false).show();
             }
@@ -248,6 +305,38 @@ public class AppointmentFragment extends Fragment {
                 adapter = new CustomSpinnerAdapter(getContext(),  doctorName,
                         department);
                 spnDropdown_Appointment.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+//        DatabaseReference doctorsRef = database.getReference("Doctors");
+//        doctorsRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                    Doctor doctor = dataSnapshot.getValue(Doctor.class);
+//                    doctorArrayList.add(doctor);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+        DatabaseReference appointmentsRef = database.getReference("Appointments");
+
+        appointmentsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Appointment appointment = dataSnapshot.getValue((Appointment.class));
+                    appointmentArrayList.add(appointment);
+                }
             }
 
             @Override

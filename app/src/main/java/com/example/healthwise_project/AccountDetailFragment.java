@@ -35,7 +35,7 @@ public class AccountDetailFragment extends Fragment {
     TextView tvHealthRecord, tvUN, tvYourAppointment;
 
     ImageView imageAva;
-    Button btnLogOut;
+    Button btnLogOut, btnChangeAvatar_AccDetail;
     FirebaseAuth auth;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,6 +87,7 @@ public class AccountDetailFragment extends Fragment {
         tvHealthRecord = (TextView) view.findViewById(R.id.tvHealthRecord);
         tvYourAppointment = (TextView) view.findViewById(R.id.tvYourAppointment);
         btnLogOut = (Button) view.findViewById(R.id.btnLogOut);
+        btnChangeAvatar_AccDetail = (Button) view.findViewById(R.id.btnChangeAvatar_AccDetail);
         imageAva = (ImageView) view.findViewById(R.id.imageView);
 
         auth = FirebaseAuth.getInstance();
@@ -104,7 +105,7 @@ public class AccountDetailFragment extends Fragment {
             }
         });
 
-        imageAva.setOnClickListener(new View.OnClickListener() {
+        btnChangeAvatar_AccDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadFragments(new UploadUserAvatar());
