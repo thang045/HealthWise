@@ -43,11 +43,12 @@
                 android:id="@+id/edtUS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="20dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="Username/gmail"
-                android:inputType="text" />
+                android:inputType="text"
+                android:minHeight="48dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -69,7 +70,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPassword"
-                />
+                android:minHeight="48dp" />
         </LinearLayout>
 
         <LinearLayout

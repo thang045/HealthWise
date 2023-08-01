@@ -1,12 +1,26 @@
 package com.example.healthwise_project;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +28,17 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+//    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+    String userName;
+    TextView tvRetrieveName;
+    FirebaseAuth auth;
+
+    DatabaseReference myRef;
+//    private String mUid = mAuth.getCurrentUser().getUid();
+//
+//    String firebaseUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//    private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child(mUid).child("userName");
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +86,58 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment"
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
+        tvRetrieveName = (TextView) view.findViewById(R.id.tvRetrieveName);
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser1 = auth.getCurrentUser();
+
+        if (firebaseUser1 != null)
+        {
+            showUserProfile(firebaseUser1);
+        }
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        final TextView tvRetrieveName = view.findViewById(R.id.tvRetrieveName);
+
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                String name = dataSnapshot.getValue(String.class);
+//                tvRetrieveName.setText(name);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+//            }
+//        });
+    }
+    public  void showUserProfile(FirebaseUser firebaseUser)
+    {
+        String userID = firebaseUser.getUid();
+        DatabaseReference reference = FirebaseDatabase.getInstance(
+                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Registered Users");
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userDetail = snapshot.getValue(User.class);
+                if (userDetail != null)
+                {
+                    userName = firebaseUser.getEmail();
+                    tvRetrieveName.setText(userName);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

@@ -31,20 +31,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="99dp"
                 android:textSize="22sp"
-                android:textColor="@color/black"
+                android:textColor="@color/dark_blue"
                 android:gravity="center_vertical"
                 android:text="Welcome," />
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvRetrieveName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="5dp"
-                android:textSize="22sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textColorHint="@color/black"
+                android:textSize="23sp"
+                android:textColor="@color/dark_blue"
+                android:textStyle="italic"
+                android:textColorHint="@color/dark_blue"
                 android:hint="username..."/>
         </LinearLayout>
 
@@ -70,7 +70,7 @@
                 android:layout_height="100dp"
                 android:gravity="center_vertical"
                 android:textSize="23.5sp"
-                android:textColorHint="@color/black"
+                android:textColorHint="@color/dark_blue"
                 android:textStyle="bold"
                 android:hint="Upcoming Appointments..."/>
 
