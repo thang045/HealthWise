@@ -1,43 +1,31 @@
 package com.example.healthwise_project;
 
+import com.google.type.DateTime;
+
+import java.lang.reflect.Array;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Appointment {
-    public Appointment(String name, String symptons, String doctor, String phone, Date time) {
-        this.name = name;
-        this.symptons = symptons;
-        this.doctor = doctor;
-        this.phone = phone;
-        this.time = time;
-    }
-    public Appointment(){
-
+    int id;
+    String name, phone, sympton;
+    Date datetime;
+    public int getId() {
+        return id;
     }
 
-    String name, symptons, doctor, phone ;
-    Date time;
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSymptons() {
-        return symptons;
-    }
-
-    public void setSymptons(String symptons) {
-        this.symptons = symptons;
-    }
-
-    public String getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(String doctor) {
-        this.doctor = doctor;
     }
 
     public String getPhone() {
@@ -48,13 +36,36 @@ public class Appointment {
         this.phone = phone;
     }
 
-    public Date getTime() {
-        return time;
+    public String getSympton() {
+        return sympton;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setSympton(String sympton) {
+        this.sympton = sympton;
     }
 
+    public Date getDatetime() {
+        return datetime;
+    }
 
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
+    }
+
+    public Appointment(int id, String name, String phone, String sympton, Date datetime) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.sympton = sympton;
+        this.datetime = datetime;
+    }
+
+//    public static ArrayList<Appointment>initAppData(int[] lsid, String[] lsname, String[] lsphone, String[] lssympton, Date lsdate){
+//        ArrayList<Appointment> appList =new ArrayList<Appointment>();
+//        for(int i =0; i<lsid.length;i++){
+//            Appointment app = new Appointment(lsid[i], lsname[i], lsphone[i], lssympton[i], lsdate);
+//            appList.add(app);
+//        }
+//        return  appList;
+//     };
 }
