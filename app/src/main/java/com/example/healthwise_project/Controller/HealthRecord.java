@@ -1,12 +1,13 @@
-package com.example.healthwise_project;
+package com.example.healthwise_project.Controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.healthwise_project.Model.HealthRecordClass;
+import com.example.healthwise_project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

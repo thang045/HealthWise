@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/hilltops_mountains"
-    tools:context=".AccountDetailFragment"
+    tools:context=".View.AccountDetailFragment"
     >
 
     <LinearLayout

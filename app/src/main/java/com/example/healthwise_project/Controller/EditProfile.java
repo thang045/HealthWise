@@ -1,4 +1,4 @@
-package com.example.healthwise_project;
+package com.example.healthwise_project.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,13 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.healthwise_project.R;
+import com.example.healthwise_project.View.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -49,7 +48,7 @@ public class EditProfile extends AppCompatActivity {
                 String userID = firebaseUser.getUid();
                 reference.child(userID).child("realName").setValue(changeName);
                 Toast.makeText(EditProfile.this,"Change Name Success!",Toast.LENGTH_LONG);
-                Intent intent = new Intent(EditProfile.this,MainActivity.class);
+                Intent intent = new Intent(EditProfile.this, MainActivity.class);
                 startActivity(intent);
             }
         });

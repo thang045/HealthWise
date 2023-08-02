@@ -1,14 +1,12 @@
-package com.example.healthwise_project;
+package com.example.healthwise_project.Controller;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,15 +17,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.healthwise_project.R;
+import com.example.healthwise_project.View.MainActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 public class UploadUserAvatar1 extends AppCompatActivity {
 
@@ -70,7 +68,7 @@ public class UploadUserAvatar1 extends AppCompatActivity {
             public void onClick(View v) {
                 uploadPic();
                 Toast.makeText(UploadUserAvatar1.this, "Change sucess", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UploadUserAvatar1.this,MainActivity.class);
+                Intent intent = new Intent(UploadUserAvatar1.this, MainActivity.class);
                 startActivity(intent);
             }
         });

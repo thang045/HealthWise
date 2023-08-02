@@ -1,4 +1,4 @@
-package com.example.healthwise_project;
+package com.example.healthwise_project.View;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,6 +16,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.healthwise_project.Controller.ChangePassword;
+import com.example.healthwise_project.Controller.EditProfile;
+import com.example.healthwise_project.Controller.HealthRecord;
+import com.example.healthwise_project.Model.User;
+import com.example.healthwise_project.R;
+import com.example.healthwise_project.Controller.UploadUserAvatar1;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -115,21 +121,21 @@ public class AccountDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(),UploadUserAvatar1.class);
+                Intent intent = new Intent(getActivity(), UploadUserAvatar1.class);
                 startActivity(intent);
             }
         });
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),EditProfile.class);
+                Intent intent = new Intent(getActivity(), EditProfile.class);
                 startActivity(intent);
             }
         });
         tvHealthRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),HealthRecord.class);
+                Intent intent = new Intent(getActivity(), HealthRecord.class);
                 startActivity(intent);
             }
         });

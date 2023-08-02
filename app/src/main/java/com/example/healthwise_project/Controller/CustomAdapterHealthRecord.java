@@ -1,18 +1,19 @@
-package com.example.healthwise_project;
+package com.example.healthwise_project.Controller;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.healthwise_project.Model.HealthRecordClass;
+import com.example.healthwise_project.R;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class CustomAdapterHealthRecord extends ArrayAdapter {
     Context context;

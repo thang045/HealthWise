@@ -1,4 +1,4 @@
-package com.example.healthwise_project;
+package com.example.healthwise_project.Model;
 
 public class User {
     public String userName, healthRecord, realName;

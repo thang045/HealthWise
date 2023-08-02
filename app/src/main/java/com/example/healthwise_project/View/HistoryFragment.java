@@ -1,4 +1,4 @@
-package com.example.healthwise_project;
+package com.example.healthwise_project.View;
 
 import android.os.Bundle;
 
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import com.example.healthwise_project.R;
 
 /**
  * A simple {@link Fragment} subclass.

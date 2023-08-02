@@ -1,4 +1,4 @@
-package com.example.healthwise_project;
+package com.example.healthwise_project.Controller;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.healthwise_project.R;
 
 public class CustomSpinnerAdapter extends BaseAdapter {
 
