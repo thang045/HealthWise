@@ -129,9 +129,9 @@ public class HomeFragment extends Fragment {
         myRef = FirebaseDatabase.getInstance("https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Appointments");
 
-        Query query = myRef.orderByChild("userID").equalTo(userID);
+        Query query = myRef.orderByChild("idUser").equalTo(userID);
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int appointmentCount = (int) dataSnapshot.getChildrenCount();
