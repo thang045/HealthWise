@@ -16,21 +16,23 @@
         <TextView
             android:id="@+id/tvDateHealthRecord"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_weight="1"
-            android:textSize="13sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#606c88"
+            android:padding="5dp"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/tvSymptonHealthRecord"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_weight="1"
-            android:textSize="13sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#3f4c6b"
+            android:padding="5dp"
             android:text="TextView" />
 
     </LinearLayout>
