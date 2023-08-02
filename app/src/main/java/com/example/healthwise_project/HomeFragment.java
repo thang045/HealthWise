@@ -1,11 +1,13 @@
 package com.example.healthwise_project;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +34,8 @@ public class HomeFragment extends Fragment {
     TextView tvRetrieveName;
     TextView tvUpcomingAppointment, tvDoctor, tvTime;
     FirebaseAuth auth;
-
     DatabaseReference myRef;
+    Button btnViewAppointment;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,10 +84,13 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment"
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
+        //-------------
         tvRetrieveName = (TextView) view.findViewById(R.id.tvRetrieveName);
         tvUpcomingAppointment = (TextView) view.findViewById(R.id.tvUpcomingAppointment);
         tvTime = (TextView) view.findViewById(R.id.tvDateTime);
         tvDoctor = (TextView) view.findViewById(R.id.tvDoctor);
+        btnViewAppointment = (Button) view.findViewById(R.id.btnViewAppointment);
+        //-------------
 
         //get Current User form Firebase
         auth = FirebaseAuth.getInstance();
@@ -97,8 +102,21 @@ public class HomeFragment extends Fragment {
             getAppointmentQuantity(firebaseUser1);
         }
 
+        addEvents();
         return view;
 
+    }
+    private void addEvents()
+    {
+        btnViewAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.btmHW_Layout, new HistoryFragment());
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
     }
 
     public  void showUserProfile(FirebaseUser firebaseUser)
@@ -135,7 +153,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int appointmentCount = (int) dataSnapshot.getChildrenCount();
-                tvUpcomingAppointment.setText("Quantity appointments: " + appointmentCount);
+                tvUpcomingAppointment.setText("Quantity of appointments: " + appointmentCount);
             }
 
             @Override

@@ -30,7 +30,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="99dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:gravity="center_vertical"
                 android:text="Welcome," />
@@ -41,10 +41,9 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="5dp"
-                android:textSize="22sp"
-                android:textColor="@color/black"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColorHint="@color/black"
+                android:textColor="@color/deep_blue"
                 android:hint="username..."/>
         </LinearLayout>
 
