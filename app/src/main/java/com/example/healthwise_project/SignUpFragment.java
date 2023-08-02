@@ -110,7 +110,7 @@ public class SignUpFragment extends Fragment {
                             {
                                 if (task.isSuccessful())
                                 {
-                                    User user = new User(email, "Null","Null");
+                                    User user = new User(email, "Loading...","Loading...");
                                     System.out.println(user.getUserName());
 
                                     FirebaseUser currentUser = auth.getCurrentUser();
