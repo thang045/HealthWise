@@ -176,12 +176,12 @@ public class HomeFragment extends Fragment {
         myRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Appointment appointment = null;
-                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    appointment = childSnapshot.getValue(Appointment.class);
-                }
+                Appointment appointment = snapshot.getValue(Appointment.class);
+//                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+//                    appointment = childSnapshot.getValue(Appointment.class);
+//                }
                 if (appointment != null) {
-                    dateTime = appointment.getDatetime().toString();
+                    dateTime = appointment.getDatetime();
                     sympton = appointment.getSymptoms();
 
                     tvRetrieveTime.setText(dateTime);

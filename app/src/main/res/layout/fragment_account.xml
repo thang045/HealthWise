@@ -34,7 +34,7 @@
             android:textSize="40sp"
             android:textStyle="bold"
             android:textColor="@color/deep_blue"
-            android:text="WELCOME" />
+            android:text="HEALTHWISE"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="370sp"
