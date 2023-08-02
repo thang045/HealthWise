@@ -55,7 +55,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:text="Gmail:" />
 
@@ -66,7 +65,6 @@
                         android:layout_marginTop="20dp"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:layout_marginLeft="15dp"
                         android:hint="Gmail"
                         android:inputType="text" />
                 </LinearLayout>
@@ -81,7 +79,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginLeft="5dp"
                         android:text="Password" />
 
                     <EditText
@@ -104,11 +101,8 @@
                         android:id="@+id/btnSignUp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
                         android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:backgroundTint="@color/dark_blue"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="5dp"
                         android:text="Sign up" />
 
                     <Button
@@ -116,9 +110,6 @@
                         android:layout_width="150sp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:backgroundTint="@color/dark_blue"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="5dp"
                         android:text="Google Account" />
 
                 </LinearLayout>
