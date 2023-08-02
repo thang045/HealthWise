@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SignUpFragment"
-    android:background="@drawable/background">
+    android:background="@drawable/hilltops_mountains">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,11 +14,11 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="50sp"
-            tools:src="@drawable/signupicon" />
+            tools:src="@drawable/baseline_person_pin_24" />
 
         <TextView
             android:id="@+id/textView9"
@@ -28,6 +28,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="30sp"
+            android:textColor="@color/deep_blue"
             android:layout_marginTop="20sp"
             android:text="SIGN UP" />
 
@@ -36,7 +37,7 @@
             android:layout_width="350sp"
             android:layout_height="400sp"
             android:layout_gravity="center"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="20dp"
             >
 
             <LinearLayout
@@ -56,6 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:layout_weight="1"
+                        android:textSize="18sp"
                         android:text="Gmail:" />
 
                     <EditText
@@ -66,6 +68,7 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:hint="Gmail"
+                        android:layout_marginLeft="25dp"
                         android:inputType="text" />
                 </LinearLayout>
 
@@ -79,6 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="18sp"
                         android:text="Password" />
 
                     <EditText
@@ -103,6 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
+                        android:backgroundTint="@color/dark_blue"
                         android:text="Sign up" />
 
                     <Button
@@ -110,6 +115,7 @@
                         android:layout_width="150sp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:backgroundTint="@color/dark_blue"
                         android:text="Google Account" />
 
                 </LinearLayout>

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HealthRecord"
-    android:background="@drawable/background">
+    android:background="@drawable/hilltops_mountains"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/hilltops_mountains"
     tools:context=".AccountDetailFragment"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
         android:orientation="vertical">
 
         <ImageView
@@ -39,8 +39,8 @@
             android:layout_width="350sp"
             android:layout_height="300sp"
             android:layout_gravity="center"
-            android:layout_marginTop="20sp"
-            app:cardCornerRadius="5dp">
+            android:layout_marginTop="25sp"
+            app:cardCornerRadius="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                         android:layout_width="50sp"
                         android:layout_height="50sp"
                         android:layout_marginRight="20sp"
-                        android:src="@drawable/mail" />
+                        android:src="@drawable/baseline_email_24" />
 
                     <TextView
                         android:id="@+id/tvUN"
@@ -68,6 +68,7 @@
                         android:layout_gravity="center"
                         android:text="TextView"
                         android:textSize="20sp"
+                        android:textColor="@color/deep_blue"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -82,7 +83,7 @@
                         android:layout_width="50sp"
                         android:layout_height="50sp"
                         android:layout_marginRight="20sp"
-                        android:src="@drawable/username" />
+                        android:src="@drawable/baseline_person_24" />
 
                     <TextView
                         android:id="@+id/tvName"
@@ -91,6 +92,7 @@
                         android:layout_gravity="center"
                         android:text="TextView"
                         android:textSize="20sp"
+                        android:textColor="@color/deep_blue"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -105,7 +107,7 @@
                         android:layout_width="50sp"
                         android:layout_height="50sp"
                         android:layout_marginRight="20sp"
-                        android:src="@drawable/healthrecord" />
+                        android:src="@drawable/baseline_health_and_safety_24" />
 
                     <TextView
                         android:id="@+id/tvHealthRecord"
@@ -114,6 +116,7 @@
                         android:layout_gravity="center"
                         android:text="TextView"
                         android:textSize="20sp"
+                        android:textColor="@color/deep_blue"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
