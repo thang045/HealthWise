@@ -30,8 +30,8 @@ import com.google.firebase.database.ValueEventListener;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    String userName;
-    TextView tvRetrieveName;
+    String userName, dateTime, sympton;
+    TextView tvRetrieveName, tvRetrieveTime, tvRetrieveSympton;
     TextView tvUpcomingAppointment, tvDoctor, tvTime;
     FirebaseAuth auth;
     DatabaseReference myRef;
@@ -90,6 +90,8 @@ public class HomeFragment extends Fragment {
         tvTime = (TextView) view.findViewById(R.id.tvDateTime);
         tvDoctor = (TextView) view.findViewById(R.id.tvDoctor);
         btnViewAppointment = (Button) view.findViewById(R.id.btnViewAppointment);
+        tvRetrieveTime = (TextView) view.findViewById(R.id.tvRetrieveTime);
+        tvRetrieveSympton = (TextView) view.findViewById(R.id.tvRetrieveSympton);
         //-------------
 
         //get Current User form Firebase
@@ -100,6 +102,7 @@ public class HomeFragment extends Fragment {
         {
             showUserProfile(firebaseUser1);
             getAppointmentQuantity(firebaseUser1);
+            getTheNextAppointment(firebaseUser1);
         }
 
         addEvents();
@@ -159,6 +162,36 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Handle errors
+            }
+        });
+    }
+
+    public void getTheNextAppointment(FirebaseUser firebaseUser) {
+        String userID = firebaseUser.getUid();
+        myRef = FirebaseDatabase.getInstance("https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Appointments");
+
+//        Query query = myRef.orderByChild("idUser").equalTo(userID);
+
+        myRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Appointment appointment = null;
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    appointment = childSnapshot.getValue(Appointment.class);
+                }
+                if (appointment != null) {
+                    dateTime = appointment.getDatetime().toString();
+                    sympton = appointment.getSymptoms();
+
+                    tvRetrieveTime.setText(dateTime);
+                    tvRetrieveSympton.setText(sympton);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
