@@ -35,7 +35,7 @@ public class AccountDetailFragment extends Fragment {
     String name, healthRecord, userName;
     TextView tvHealthRecord, tvUN, tvName;
     ImageView imageAva;
-    Button btnLogOut, btnChangePassword;
+    Button btnLogOut, btnChangePassword, btnEditProfile;
     FirebaseAuth auth;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,6 +88,7 @@ public class AccountDetailFragment extends Fragment {
         tvName = (TextView) view.findViewById(R.id.tvName);
         btnLogOut = (Button) view.findViewById(R.id.btnLogOut);
         btnChangePassword = (Button) view.findViewById(R.id.btnGoChangePassword);
+        btnEditProfile = (Button) view.findViewById(R.id.btnEditProfile);
         imageAva = (ImageView) view.findViewById(R.id.imageAva);
 
         auth = FirebaseAuth.getInstance();
@@ -118,6 +119,21 @@ public class AccountDetailFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),EditProfile.class);
+                startActivity(intent);
+            }
+        });
+        tvHealthRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),HealthRecord.class);
+                startActivity(intent);
+            }
+        });
+
 
         return view;
     }
