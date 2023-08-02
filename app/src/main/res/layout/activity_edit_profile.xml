@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditProfile"
-    android:background="@drawable/background">
+    android:background="@drawable/hilltops_mountains">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_marginTop="200sp"
         android:layout_width="300sp"
         android:layout_height="300sp"
+        app:cardCornerRadius="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
