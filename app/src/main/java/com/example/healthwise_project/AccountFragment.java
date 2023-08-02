@@ -24,7 +24,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -115,9 +119,11 @@ public class AccountFragment extends Fragment {
                 if (TextUtils.isEmpty(email))
                 {
                     Toast.makeText(getActivity(), "Wrong username!", Toast.LENGTH_SHORT).show();
+                    edtUS.setError("Please enter your username");
                     edtUS.requestFocus();
                 } else if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getActivity(), "Wrong password!", Toast.LENGTH_SHORT).show();
+                    edtPW.setError("Please enter your password");
                     edtPW.requestFocus();
                 }
                 auth.signInWithEmailAndPassword(email, password)
@@ -129,7 +135,17 @@ public class AccountFragment extends Fragment {
                                     loadFragments(new AccountDetailFragment());
                                     Toast.makeText(getActivity(), "Welcome!", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(getActivity(), "Wrong username or password!", Toast.LENGTH_SHORT).show();
+                                    try {
+                                        throw Objects.requireNonNull(task.getException());
+                                    }
+                                    catch (FirebaseAuthInvalidCredentialsException e){
+                                        Toast.makeText(getActivity(), "Wrong username or Password", Toast.LENGTH_SHORT).show();
+                                        edtUS.setError("Please enter your username");
+                                        edtUS.requestFocus();
+                                    }
+                                    catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
 
                                 }
                             }

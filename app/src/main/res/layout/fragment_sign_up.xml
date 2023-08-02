@@ -14,9 +14,11 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:src="@tools:sample/avatars" />
+            android:layout_gravity="center"
+            android:layout_marginTop="50sp"
+            tools:src="@drawable/signupicon" />
 
         <TextView
             android:id="@+id/textView9"
@@ -40,7 +42,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="20sp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="62dp"
@@ -110,28 +113,29 @@
 
                     <Button
                         android:id="@+id/button2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="150sp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/dark_blue"
                         android:layout_gravity="center"
                         android:layout_marginRight="5dp"
                         android:text="Google Account" />
+
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="TextView"
+                    android:textSize="30dp" />
 
             </LinearLayout>
 
 
         </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/tvError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:text="TextView" />
 
     </LinearLayout>
 </FrameLayout>
