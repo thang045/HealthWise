@@ -21,8 +21,10 @@
 
         <Button
             android:id="@+id/btnChangeAvatar_AccDetail"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/dark_blue"
             android:text="Change Avatar" />
 
         <TextView
@@ -126,15 +128,19 @@
 
             <Button
                 android:id="@+id/btnGoChangePassword"
-                android:layout_width="150dp"
-                android:layout_height="61dp"
-                android:layout_marginRight="40sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/dark_blue"
                 android:text="Change Password" />
 
             <Button
                 android:id="@+id/btnEditProfile"
-                android:layout_width="150dp"
-                android:layout_height="61dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/dark_blue"
                 android:text="Change NAme" />
 
 
@@ -145,6 +151,7 @@
             android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:backgroundTint="@color/dark_blue"
             android:text="Log Out" />
 
 
