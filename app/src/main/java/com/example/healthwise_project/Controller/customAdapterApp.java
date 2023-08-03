@@ -63,7 +63,7 @@ public class customAdapterApp extends ArrayAdapter<HistoryAppointment>{
         TextView tvDoc = view.findViewById(R.id.tvDoctor);
 
         tvDate.setText(HisApp.getDate());
-        tvDoc.setText(HisApp.getIdDoctor());
+        tvDoc.setText(String.valueOf(HisApp.getNameDoctor()));
 
         return  view;
     }

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.HealthWise_Project"
         tools:targetApi="31">
         <activity
+            android:name=".Controller.DetailAppointment"
+            android:exported="false" />
+        <activity
             android:name=".Controller.HealthRecord"
             android:exported="false" />
         <activity

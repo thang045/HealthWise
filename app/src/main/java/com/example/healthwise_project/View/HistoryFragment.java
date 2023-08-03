@@ -1,6 +1,7 @@
 package com.example.healthwise_project.View;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,11 +11,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.healthwise_project.Controller.CustomAdapterHealthRecord;
+import com.example.healthwise_project.Controller.DetailAppointment;
 import com.example.healthwise_project.Controller.HealthRecord;
 import com.example.healthwise_project.Controller.customAdapterApp;
 import com.example.healthwise_project.Model.Appointment;
@@ -49,8 +53,6 @@ public class HistoryFragment extends Fragment {
 
     customAdapterApp adapter;
     ArrayList<HistoryAppointment> HisAppointmentList = new ArrayList<>();
-    HistoryAppointment hisApp;
-    TextView tvDoctor,tvDate;
     ListView lvHistory;
 
 
@@ -104,6 +106,22 @@ public class HistoryFragment extends Fragment {
 
         lvHistory = (ListView) view.findViewById(R.id.lvAppLog);
 
+
+        loadDb();
+        lvHistory.setClickable(true);
+        lvHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), DetailAppointment.class);
+                startActivity(intent);
+            }
+        });
+
+        return view;
+
+    }
+
+    public void loadDb(){
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         assert firebaseUser != null;
         String userID = firebaseUser.getUid();
@@ -119,20 +137,21 @@ public class HistoryFragment extends Fragment {
                     if(dataSnapshot.child("idUser").getValue().toString().equals(userID))
                     {
                         String datetime = dataSnapshot.child("datetime").getValue().toString();
-                        int idDoc = Integer.parseInt(dataSnapshot.child("idDoc").getValue().toString());
-                        HistoryAppointment data = new HistoryAppointment(datetime, idDoc);
+                        //int idDoc = Integer.parseInt(dataSnapshot.child("idDoctor").getValue().toString());
+                        String nameDoc = dataSnapshot.child("idDoctor").getValue().toString();
+                        HistoryAppointment data = new HistoryAppointment(datetime, nameDoc);
 
                         System.out.println(datetime);
-                        System.out.println(idDoc);
+                        System.out.println(nameDoc);
                         System.out.println(data.getDate());
                         HisAppointmentList = new ArrayList<HistoryAppointment>();
                         HisAppointmentList.add(data);
                     }
                 }
-                System.out.println(HisAppointmentList.get(0).toString());
-
                 adapter = new customAdapterApp(getActivity(),HisAppointmentList);
                 lvHistory.setAdapter(adapter);
+
+                lvHistory.setClickable(true);
             }
 
             @Override
@@ -140,10 +159,9 @@ public class HistoryFragment extends Fragment {
 
             }
         });
-
-        return view;
-
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

@@ -2,11 +2,11 @@ package com.example.healthwise_project.Model;
 
 public class HistoryAppointment {
     String date;
-    int idDoctor;
+    String nameDoctor;
 
-    public HistoryAppointment(String date, int idDoctor) {
+    public HistoryAppointment(String date, String nameDoctor) {
         this.date = date;
-        this.idDoctor = idDoctor;
+        this.nameDoctor = nameDoctor;
     }
 
     public HistoryAppointment(){
@@ -21,12 +21,12 @@ public class HistoryAppointment {
         this.date = date;
     }
 
-    public int getIdDoctor() {
-        return idDoctor;
+    public String getNameDoctor() {
+        return nameDoctor;
     }
 
-    public void setIdDoctor(int idDoctor) {
-        this.idDoctor = idDoctor;
+    public void setIdDoctor(String nameDoctor) {
+        this.nameDoctor = nameDoctor;
     }
 
 

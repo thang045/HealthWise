@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         //-----------
         addEvents();
-
-
     }
 
     private void addControls()
