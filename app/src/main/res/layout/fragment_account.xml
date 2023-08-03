@@ -4,22 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccountFragment"
+    tools:context=".View.AccountFragment"
     android:id="@+id/accountLayout"
+    android:background="@drawable/hilltops_mountains"
     tools:ignore="InvalidId">
 
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Account Fragment" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/background">
+        >
 
         <ImageView
             android:id="@+id/imageView"
@@ -37,14 +33,14 @@
             android:gravity="center"
             android:textSize="40sp"
             android:textStyle="bold"
-            android:textColor="#F0C27B"
-            android:text="WELCOME" />
+            android:textColor="@color/deep_blue"
+            android:text="HEALTHWISE"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="370sp"
             android:layout_height="420sp"
             android:layout_gravity="center"
-            app:cardCornerRadius="5dp"
+            app:cardCornerRadius="25dp"
             android:layout_marginTop="20sp">
 
             <LinearLayout
@@ -64,6 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Gmail:"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         android:layout_marginRight="20sp"/>
 
@@ -73,6 +70,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="Gmail"
+                        android:layout_marginLeft="15dp"
                         android:inputType="text" />
                 </LinearLayout>
 
@@ -89,6 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20sp"
                         android:textStyle="bold"
+                        android:textSize="18sp"
                         android:text="Password" />
 
                     <EditText
@@ -113,6 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
+                        android:backgroundTint="@color/dark_blue"
                         android:text="Sign in" />
 
                     <Button
@@ -120,6 +120,7 @@
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:backgroundTint="@color/dark_blue"
                         android:text="Google Account" />
 
                 </LinearLayout>
@@ -129,7 +130,7 @@
                     android:layout_width="310dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
-
+                    android:backgroundTint="@color/dark_blue"
                     android:text="You don't have account?" />
             </LinearLayout>
 

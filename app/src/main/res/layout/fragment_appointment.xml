@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/medical_background"
-    tools:context=".AppointmentFragment">
+    tools:context=".View.AppointmentFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-
+                android:textSize="20sp"
                 android:text="Date and Time: " />
 
             <Button
@@ -46,7 +45,7 @@
             android:textStyle="bold"
             android:gravity="center"
             android:background="#6DCFCECE"
-            android:text="TextView" />
+            android:hint="Time"/>
 
         <LinearLayout
             android:layout_width="match_parent"

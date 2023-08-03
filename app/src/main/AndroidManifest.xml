@@ -15,10 +15,19 @@
         android:theme="@style/Theme.HealthWise_Project"
         tools:targetApi="31">
         <activity
-            android:name=".LV_HistoryApp"
+            android:name=".Controller.HealthRecord"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Controller.EditProfile"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.UploadUserAvatar1"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.HistoryApp"
+            android:exported="false" />
+        <activity
+            android:name=".View.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
