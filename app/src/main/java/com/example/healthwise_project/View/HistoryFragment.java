@@ -109,10 +109,16 @@ public class HistoryFragment extends Fragment {
 
         loadDb();
         lvHistory.setClickable(true);
+
+//        DatabaseReference appointmentRef = FirebaseDatabase.getInstance(
+//                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+//                .getReference("Appointments");
+
         lvHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), DetailAppointment.class);
+//                intent.putExtra("id", appointmentRef.child("id").toString());
                 startActivity(intent);
             }
         });
@@ -123,7 +129,7 @@ public class HistoryFragment extends Fragment {
 
     public void loadDb(){
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        assert firebaseUser != null;
+        //assert firebaseUser != null;
         String userID = firebaseUser.getUid();
         DatabaseReference appointmentRef = FirebaseDatabase.getInstance(
                         "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
