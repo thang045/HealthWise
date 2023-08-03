@@ -24,9 +24,6 @@
             android:name=".Controller.UploadUserAvatar1"
             android:exported="false" />
         <activity
-            android:name=".Controller.HistoryApp"
-            android:exported="false" />
-        <activity
             android:name=".View.MainActivity"
             android:exported="true">
             <intent-filter>

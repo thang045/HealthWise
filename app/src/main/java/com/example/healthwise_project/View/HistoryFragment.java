@@ -14,8 +14,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.healthwise_project.Controller.CustomAdapterHealthRecord;
+import com.example.healthwise_project.Controller.HealthRecord;
 import com.example.healthwise_project.Controller.customAdapterApp;
 import com.example.healthwise_project.Model.Appointment;
+import com.example.healthwise_project.Model.HealthRecordClass;
 import com.example.healthwise_project.Model.HistoryAppointment;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,12 +47,13 @@ import com.example.healthwise_project.R;
  */
 public class HistoryFragment extends Fragment {
 
-    ArrayList<HistoryAppointment> HisAppointmentList;
+    customAdapterApp adapter;
+    ArrayList<HistoryAppointment> HisAppointmentList = new ArrayList<>();
+    HistoryAppointment hisApp;
     TextView tvDoctor,tvDate;
-    DatabaseReference myRef;
     ListView lvHistory;
 
-    customAdapterApp adapter;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -84,12 +88,10 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
 
     }
 
@@ -100,57 +102,16 @@ public class HistoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
-        tvDate =(TextView) view.findViewById(R.id.tvDate);
-        tvDoctor =(TextView) view.findViewById(R.id.tvDoctor);
         lvHistory = (ListView) view.findViewById(R.id.lvAppLog);
 
-//        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//        assert firebaseUser != null;
-//        String userID = firebaseUser.getUid();
-//
-//        DatabaseReference reference = FirebaseDatabase.getInstance(
-//                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
-//                .getReference("Appointments");
-
-        loadDB();
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    public void showAppointments(FirebaseUser fbUser){
-        String userID = fbUser.getUid();
-        myRef = FirebaseDatabase.getInstance(
-                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                .getReference("Appointments");
-
-        myRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    public void loadDB(){
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         assert firebaseUser != null;
         String userID = firebaseUser.getUid();
+        DatabaseReference appointmentRef = FirebaseDatabase.getInstance(
+                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Appointments");
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://healthwise-project" +
-                "-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference AppRef = database.getReference("Appointments");
-        DatabaseReference DocRef = database.getReference("Doctors");
-
-        AppRef.addValueEventListener(new ValueEventListener() {
+        appointmentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
@@ -158,24 +119,20 @@ public class HistoryFragment extends Fragment {
                     if(dataSnapshot.child("idUser").getValue().toString().equals(userID))
                     {
                         String datetime = dataSnapshot.child("datetime").getValue().toString();
-                        int idDoc = Integer.parseInt(dataSnapshot.child("idDoctor").getValue().toString());
+                        int idDoc = Integer.parseInt(dataSnapshot.child("idDoc").getValue().toString());
                         HistoryAppointment data = new HistoryAppointment(datetime, idDoc);
 
                         System.out.println(datetime);
                         System.out.println(idDoc);
-
+                        System.out.println(data.getDate());
                         HisAppointmentList = new ArrayList<HistoryAppointment>();
                         HisAppointmentList.add(data);
                     }
                 }
                 System.out.println(HisAppointmentList.get(0).toString());
-                adapter = new customAdapterApp(
-                        getActivity(),
-                        HisAppointmentList,
-                        R.layout.activity_lv_history_app
-                        );
-                lvHistory.setAdapter(adapter);
 
+                adapter = new customAdapterApp(getActivity(),HisAppointmentList);
+                lvHistory.setAdapter(adapter);
             }
 
             @Override
@@ -184,5 +141,13 @@ public class HistoryFragment extends Fragment {
             }
         });
 
+        return view;
+
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
 }
