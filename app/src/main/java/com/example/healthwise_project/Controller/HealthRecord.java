@@ -55,15 +55,14 @@ public class HealthRecord extends AppCompatActivity {
                         healthRecordList = new ArrayList<HealthRecordClass>();
                         healthRecordList.add(data);
 
+                        customAdapter = new CustomAdapterHealthRecord(
+                                HealthRecord.this,
+                                R.layout.customlv_health_record,
+                                healthRecordList);
+                        listView.setAdapter(customAdapter);
+
                     }
                 }
-                System.out.println(healthRecordList.get(0).toString());
-
-                customAdapter = new CustomAdapterHealthRecord(
-                        HealthRecord.this,
-                        R.layout.customlv_health_record,
-                        healthRecordList);
-                listView.setAdapter(customAdapter);
             }
 
             @Override
