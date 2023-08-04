@@ -41,6 +41,8 @@ public class HealthRecord extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                healthRecordList = new ArrayList<HealthRecordClass>();
+
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     if(dataSnapshot.child("idUser").getValue().toString().equals(userID))
@@ -52,10 +54,13 @@ public class HealthRecord extends AppCompatActivity {
 //                        System.out.println(datetime);
 //                        System.out.println(symptoms);
 //                        System.out.println(data.getDate());
-                        healthRecordList = new ArrayList<HealthRecordClass>();
                         healthRecordList.add(data);
 
                     }
+                }
+                for (HealthRecordClass health: healthRecordList)
+                {
+                    System.out.println(health.getSymtomps());
                 }
                 System.out.println(healthRecordList.get(0).toString());
 
