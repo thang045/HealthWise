@@ -18,10 +18,12 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DetailAppointment extends AppCompatActivity {
-    TextView tvname, tvphone, tvsympton, tvtime, tvdoctor;
+    TextView tvname, tvphone, tvsymptom, tvtime, tvdoctor;
     ArrayList<Appointment> ListAppointments;
+    String name, phone, symptoms, time, doctor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +33,10 @@ public class DetailAppointment extends AppCompatActivity {
         addControls();
 
         Intent intent = this.getIntent();
+        //int idApp1 = intent.getIntExtra("id", 0);
+        String idApp1 = String.valueOf(intent.getIntExtra("id", 0));
         if(intent!=null){
-            int id = Integer.parseInt(intent.getStringExtra("id"));
+            //int id = Integer.parseInt(intent.getStringExtra("id"));
 
             DatabaseReference appointmentRef = FirebaseDatabase.getInstance(
                             "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -41,8 +45,26 @@ public class DetailAppointment extends AppCompatActivity {
             appointmentRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        System.out.println(dataSnapshot.child("id").getValue()+" testtttttttttttttt");
+                        if(dataSnapshot.child("id").getValue().toString().equals(idApp1)){
+                            System.out.println("Vo IF roiiiiiiiiiiiiii");
 
-                    System.out.println(snapshot.getChildren());
+                            name = dataSnapshot.child("name").getValue().toString();
+                            phone =  dataSnapshot.child("phone").getValue().toString();
+                            symptoms =  dataSnapshot.child("symptoms").getValue().toString();
+                            time =  dataSnapshot.child("datetime").getValue().toString();
+                            doctor =  dataSnapshot.child("idDoctor").getValue().toString();
+
+                            //System.out.println(name +" "+phone+" "+ symptoms+" "+time+" "+doctor );
+
+                            tvname.setText("Name: " + name);
+                            tvphone.setText("Phone: "+phone);
+                            tvsymptom.setText("Symptoms: "+symptoms);
+                            tvtime.setText("Time: "+time);
+                            tvdoctor.setText("Doctor: "+doctor);
+                        }
+                    }
                 }
 
                 @Override
@@ -51,17 +73,13 @@ public class DetailAppointment extends AppCompatActivity {
                 }
             });
         }
-
-
-
     }
 
     public void addControls(){
         tvname = (TextView) findViewById(R.id.tvname);
         tvphone = (TextView) findViewById(R.id.tvphone);
-        tvsympton = (TextView) findViewById(R.id.tvsymptons);
+        tvsymptom = (TextView) findViewById(R.id.tvsymptons);
         tvtime = (TextView) findViewById(R.id.tvTime);
         tvdoctor = (TextView) findViewById(R.id.tvdoc);
-
     }
 }

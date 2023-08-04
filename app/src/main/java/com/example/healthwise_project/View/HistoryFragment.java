@@ -55,6 +55,8 @@ public class HistoryFragment extends Fragment {
     ArrayList<HistoryAppointment> HisAppointmentList = new ArrayList<>();
     ListView lvHistory;
 
+    int idApp;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -108,17 +110,31 @@ public class HistoryFragment extends Fragment {
 
 
         loadDb();
+
+        DatabaseReference appointmentRef = FirebaseDatabase.getInstance(
+                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Appointments");
+
+        appointmentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Appointment appointment = dataSnapshot.getValue(Appointment.class);
+                    idApp = appointment.getId();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         lvHistory.setClickable(true);
-
-//        DatabaseReference appointmentRef = FirebaseDatabase.getInstance(
-//                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
-//                .getReference("Appointments");
-
         lvHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), DetailAppointment.class);
-//                intent.putExtra("id", appointmentRef.child("id").toString());
+                intent.putExtra("id", idApp);
                 startActivity(intent);
             }
         });
@@ -147,17 +163,15 @@ public class HistoryFragment extends Fragment {
                         String nameDoc = dataSnapshot.child("idDoctor").getValue().toString();
                         HistoryAppointment data = new HistoryAppointment(datetime, nameDoc);
 
-                        System.out.println(datetime);
-                        System.out.println(nameDoc);
-                        System.out.println(data.getDate());
                         HisAppointmentList = new ArrayList<HistoryAppointment>();
                         HisAppointmentList.add(data);
                     }
                 }
                 adapter = new customAdapterApp(getActivity(),HisAppointmentList);
                 lvHistory.setAdapter(adapter);
-
                 lvHistory.setClickable(true);
+
+
             }
 
             @Override

@@ -49,9 +49,9 @@ public class HealthRecord extends AppCompatActivity {
                         String symptoms = dataSnapshot.child("symptoms").getValue().toString();
                         HealthRecordClass data = new HealthRecordClass(datetime,symptoms);
 
-                        System.out.println(datetime);
-                        System.out.println(symptoms);
-                        System.out.println(data.getDate());
+//                        System.out.println(datetime);
+//                        System.out.println(symptoms);
+//                        System.out.println(data.getDate());
                         healthRecordList = new ArrayList<HealthRecordClass>();
                         healthRecordList.add(data);
 
