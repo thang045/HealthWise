@@ -145,7 +145,6 @@ public class DetailAppointment extends AppCompatActivity {
             });
         }
     }
-
     public void addControls(){
         tvname = (TextView) findViewById(R.id.tvname);
         tvphone = (TextView) findViewById(R.id.tvphone);
