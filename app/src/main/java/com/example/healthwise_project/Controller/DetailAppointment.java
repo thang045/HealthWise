@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.healthwise_project.Model.Appointment;
+import com.example.healthwise_project.Model.Doctor;
 import com.example.healthwise_project.R;
+import com.example.healthwise_project.View.HistoryFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +25,7 @@ import java.util.Objects;
 public class DetailAppointment extends AppCompatActivity {
     TextView tvname, tvphone, tvsymptom, tvtime, tvdoctor;
     ArrayList<Appointment> ListAppointments;
-    String name, phone, symptoms, time, doctor;
+    String name, phone, symptoms, time, doctor, nameDoctor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +58,21 @@ public class DetailAppointment extends AppCompatActivity {
                             time =  dataSnapshot.child("datetime").getValue().toString();
                             doctor =  dataSnapshot.child("idDoctor").getValue().toString();
 
-                            //System.out.println(name +" "+phone+" "+ symptoms+" "+time+" "+doctor );
-
-                            tvname.setText("Name: " + name);
-                            tvphone.setText("Phone: "+phone);
-                            tvsymptom.setText("Symptoms: "+symptoms);
-                            tvtime.setText("Time: "+time);
-                            tvdoctor.setText("Doctor: "+doctor);
+                            changeToDoctorName1(doctor, new HistoryFragment.DoctorNameCallback() {
+                                @Override
+                                public void onDoctorNameRetrieved(String doctorName) {
+                                    tvname.setText("Name: " + name);
+                                    tvphone.setText("Phone: "+phone);
+                                    tvsymptom.setText("Symptoms: "+symptoms);
+                                    tvtime.setText("Time: "+time);
+                                    tvdoctor.setText("Doctor: "+nameDoctor);
+                                }
+                            });
+//                            tvname.setText("Name: " + name);
+//                            tvphone.setText("Phone: "+phone);
+//                            tvsymptom.setText("Symptoms: "+symptoms);
+//                            tvtime.setText("Time: "+time);
+//                            tvdoctor.setText("Doctor: "+doctor);
                         }
                     }
                 }
@@ -73,6 +83,37 @@ public class DetailAppointment extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public interface DoctorNameCallback {
+        void onDoctorNameRetrieved(String doctorName);
+    }
+
+    public void changeToDoctorName1(String id, HistoryFragment.DoctorNameCallback calback){
+        //final String[] result = {""};
+        DatabaseReference doctorRef = FirebaseDatabase.getInstance(
+                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Doctors");
+        doctorRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    if(dataSnapshot.child("id").getValue().toString().equals(id)){
+                        Doctor d = dataSnapshot.getValue(Doctor.class);
+                        nameDoctor = d.getName();
+                        System.out.println(nameDoctor+ " ten trong IF");
+
+                        calback.onDoctorNameRetrieved(nameDoctor);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        System.out.println(nameDoctor+ " ten ngoai IF");
     }
 
     public void addControls(){

@@ -22,6 +22,7 @@ import com.example.healthwise_project.Controller.DetailAppointment;
 import com.example.healthwise_project.Controller.HealthRecord;
 import com.example.healthwise_project.Controller.customAdapterApp;
 import com.example.healthwise_project.Model.Appointment;
+import com.example.healthwise_project.Model.Doctor;
 import com.example.healthwise_project.Model.HealthRecordClass;
 import com.example.healthwise_project.Model.HistoryAppointment;
 import com.google.common.collect.ArrayListMultimap;
@@ -54,6 +55,10 @@ public class HistoryFragment extends Fragment {
     customAdapterApp adapter;
     ArrayList<HistoryAppointment> HisAppointmentList = new ArrayList<>();
     ListView lvHistory;
+
+    String nameDoctor;
+
+    String idDoc;
 
     int idApp;
 
@@ -151,6 +156,7 @@ public class HistoryFragment extends Fragment {
                         "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Appointments");
 
+
         appointmentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -160,18 +166,56 @@ public class HistoryFragment extends Fragment {
                     {
                         String datetime = dataSnapshot.child("datetime").getValue().toString();
                         //int idDoc = Integer.parseInt(dataSnapshot.child("idDoctor").getValue().toString());
-                        String nameDoc = dataSnapshot.child("idDoctor").getValue().toString();
-                        HistoryAppointment data = new HistoryAppointment(datetime, nameDoc);
+                        idDoc = dataSnapshot.child("idDoctor").getValue().toString();
+                        changeToDoctorName1(idDoc, new DoctorNameCallback() {
+                            @Override
+                            public void onDoctorNameRetrieved(String doctorName) {
+                                System.out.println(doctorName + " ten ngoai IF");
+                                HistoryAppointment data = new HistoryAppointment(datetime, nameDoctor);
+                                HisAppointmentList = new ArrayList<HistoryAppointment>();
+                                HisAppointmentList.add(data);
 
-                        HisAppointmentList = new ArrayList<HistoryAppointment>();
-                        HisAppointmentList.add(data);
+                                adapter = new customAdapterApp(getActivity(),HisAppointmentList);
+                                lvHistory.setAdapter(adapter);
+                                lvHistory.setClickable(true);
+                            }
+                        });
                     }
                 }
-                adapter = new customAdapterApp(getActivity(),HisAppointmentList);
-                lvHistory.setAdapter(adapter);
-                lvHistory.setClickable(true);
+
+            }
 
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
+        });
+
+    }
+    public interface DoctorNameCallback {
+        void onDoctorNameRetrieved(String doctorName);
+    }
+
+    public void changeToDoctorName1(String id, DoctorNameCallback calback){
+        //final String[] result = {""};
+        DatabaseReference doctorRef = FirebaseDatabase.getInstance(
+                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Doctors");
+        doctorRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    if(dataSnapshot.child("id").getValue().toString().equals(id)){
+                        Doctor d = dataSnapshot.getValue(Doctor.class);
+                        nameDoctor = d.getName();
+                        System.out.println(nameDoctor+ " ten trong IF");
+
+                        calback.onDoctorNameRetrieved(nameDoctor);
+                    }
+                }
             }
 
             @Override
@@ -179,7 +223,9 @@ public class HistoryFragment extends Fragment {
 
             }
         });
+        System.out.println(nameDoctor+ " ten ngoai IF");
     }
+
 
 
 
