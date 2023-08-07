@@ -35,6 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -131,7 +133,16 @@ public class AppointmentFragment extends Fragment {
 
 
                 String name = edtName_Appointment.getText().toString();
-                String phone = edtPhone_Appointment.getText().toString();
+
+                String phone = "";
+                Pattern p = Pattern.compile("09[1-9]{8}");
+                Matcher m = p.matcher(edtPhone_Appointment.getText());
+                if (m.matches()){
+                    phone = edtPhone_Appointment.getText().toString();
+                }else {
+                    Toast.makeText(getContext(), "Số điện thoại không hợp lệ!",
+                            Toast.LENGTH_SHORT).show();
+                }
                 String symptoms = edtSymptoms_Appointment.getText().toString();
                 Doctor selectedDoctor =
                         getDoctor(spnDropdown_Appointment.getSelectedItemPosition());
@@ -286,32 +297,23 @@ public class AppointmentFragment extends Fragment {
 
                                         if(date.get(Calendar.HOUR) >= 7 && date.get(Calendar.HOUR) <= 11){
 
-//                                            if(date.get(Calendar.HOUR) < 12 && date.get(Calendar.MINUTE) < 1){
                                                 selectedDate = dayOfWeek + ", " + month +
                                                         " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
                                                 selectedTime =
                                                         convertTime(date.get(Calendar.HOUR)) + ":" + convertTime(date.get(Calendar.MINUTE)) + " " + AM_PM;
                                                 tvDateTime.setText(selectedDate + "\n" + selectedTime);
-//                                            }else{
-//                                                Toast.makeText(getContext(), "Vui lòng chọn trong " +
-//                                                        "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
-//                                            }
+
                                         }else{
                                             Toast.makeText(getContext(), "Vui lòng chọn trong " +
                                                     "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
                                         }
                                     } else if (date.get(Calendar.AM_PM) == 1) {
                                         if(date.get(Calendar.HOUR) >= 1 && date.get(Calendar.HOUR) <= 5){
-//                                            if(date.get(Calendar.HOUR) < 6 && date.get(Calendar.MINUTE) < 1){
                                                 selectedDate = dayOfWeek + ", " + month +
                                                         " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
                                                 selectedTime =
                                                         convertTime(date.get(Calendar.HOUR)) + ":" + convertTime(date.get(Calendar.MINUTE)) + " " + AM_PM;
                                                 tvDateTime.setText(selectedDate + "\n" + selectedTime);
-//                                            }else{
-//                                                Toast.makeText(getContext(), "Vui lòng chọn trong " +
-//                                                        "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
-//                                            }
                                         }else{
                                             Toast.makeText(getContext(), "Vui lòng chọn trong " +
                                                     "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
@@ -324,35 +326,26 @@ public class AppointmentFragment extends Fragment {
                                                     "so với ngày hiện tại!",
                                             Toast.LENGTH_LONG).show();
                                 }
+
                             }else if(monthOfYear > currentDate.get(Calendar.MONTH)){
                                 if(date.get(Calendar.AM_PM) == 0){
                                     if(date.get(Calendar.HOUR) >= 7 && date.get(Calendar.HOUR) <= 11){
-//                                        if(date.get(Calendar.HOUR) < 12 && date.get(Calendar.MINUTE) < 1){
                                             selectedDate = dayOfWeek + ", " + month +
                                                     " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
                                             selectedTime =
                                                     date.get(Calendar.HOUR) + ":" + date.get(Calendar.MINUTE) + " " + AM_PM;
                                             tvDateTime.setText(selectedDate + "\n" + selectedTime);
-//                                        }else{
-//                                            Toast.makeText(getContext(), "Vui lòng chọn trong " +
-//                                                    "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
-//                                        }
                                     }else{
                                         Toast.makeText(getContext(), "Vui lòng chọn trong " +
                                                 "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
                                     }
                                 } else if (date.get(Calendar.AM_PM) == 1) {
                                     if(date.get(Calendar.HOUR) >= 1 && date.get(Calendar.HOUR) <= 5){
-//                                        if(date.get(Calendar.HOUR) < 6 && date.get(Calendar.MINUTE) < 1){
                                             selectedDate = dayOfWeek + ", " + month +
                                                     " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
                                             selectedTime =
                                                     convertTime(date.get(Calendar.HOUR)) + ":" + convertTime(date.get(Calendar.MINUTE)) + " " + AM_PM;
                                             tvDateTime.setText(selectedDate + "\n" + selectedTime);
-//                                        }else{
-//                                            Toast.makeText(getContext(), "Vui lòng chọn trong " +
-//                                                    "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
-//                                        }
                                     }else{
                                         Toast.makeText(getContext(), "Vui lòng chọn trong " +
                                                 "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
