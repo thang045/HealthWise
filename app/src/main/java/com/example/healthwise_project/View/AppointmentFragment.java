@@ -151,6 +151,7 @@ public class AppointmentFragment extends Fragment {
                                 selectedTime + " " + selectedDate,
                                 idDoctor, idUser);
                         appointmentsRef.child("Appointment_" + (appointmentArrayList.size() + 1)).setValue(appointment);
+                        Toast.makeText(getContext(),"Appointment added!", Toast.LENGTH_SHORT).show();
                     }catch (Exception e){
                         Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                     }
@@ -210,41 +211,41 @@ public class AppointmentFragment extends Fragment {
                         }
 
                         //Month
-                        switch (date.get(Calendar.DAY_OF_MONTH)){
-                            case 1:
+                        switch (date.get(Calendar.MONTH)){
+                            case 0:
                                 month = "January";
                                 break;
-                            case 2:
+                            case 1:
                                 month = "February";
                                 break;
-                            case 3:
+                            case 2:
                                 month = "March";
                                 break;
-                            case 4:
+                            case 3:
                                 month = "April";
                                 break;
-                            case 5:
+                            case 4:
                                 month = "May";
                                 break;
-                            case 6:
+                            case 5:
                                 month = "June";
                                 break;
-                            case 7:
+                            case 6:
                                 month = "July";
                                 break;
-                            case 8:
+                            case 7:
                                 month = "August";
                                 break;
-                            case 9:
+                            case 8:
                                 month = "September";
                                 break;
-                            case 10:
+                            case 9:
                                 month = "October";
                                 break;
-                            case 11:
+                            case 10:
                                 month = "November";
                                 break;
-                            case 12:
+                            case 11:
                                 month = "December";
                                 break;
                             default:
@@ -265,15 +266,115 @@ public class AppointmentFragment extends Fragment {
                                 AM_PM = "Error";
                                 break;
                         }
-                        selectedDate = dayOfWeek + ", " + month +
-                                " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
-                        selectedTime =
-                                date.get(Calendar.HOUR) + ":" + date.get(Calendar.MINUTE) + " " + AM_PM;
-                        tvDateTime.setText(selectedDate + "\n" + selectedTime);
+
+                        Log.d("sYear", "" + date.get(Calendar.YEAR));
+                        Log.d("cYear", "" + currentDate.get(Calendar.YEAR));
+
+                        Log.d("sMonth", "" + date.get(Calendar.MONTH));
+                        Log.d("cMonth", "" + currentDate.get(Calendar.MONTH));
+
+                        Log.d("sDay", "" + date.get(Calendar.DAY_OF_MONTH));
+                        Log.d("cDay", "" + currentDate.get(Calendar.DAY_OF_MONTH));
+
+                        if(date.get(Calendar.YEAR) >= currentDate.get(Calendar.YEAR)){
+                            if(date.get(Calendar.MONTH) == currentDate.get(Calendar.MONTH)){
+                                if(date.get(Calendar.DAY_OF_MONTH) - currentDate.get(Calendar.DAY_OF_MONTH) >= 2){
+                                    if(date.get(Calendar.AM_PM) == 0){
+                                        if(date.get(Calendar.HOUR) >= 7 && date.get(Calendar.HOUR) <= 11){
+                                            if(date.get(Calendar.HOUR) < 12 && date.get(Calendar.MINUTE) < 1){
+                                                selectedDate = dayOfWeek + ", " + month +
+                                                        " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
+                                                selectedTime =
+                                                        convertTime(date.get(Calendar.HOUR)) + ":" + convertTime(date.get(Calendar.MINUTE)) + " " + AM_PM;
+                                                tvDateTime.setText(selectedDate + "\n" + selectedTime);
+                                            }else{
+                                                Toast.makeText(getContext(), "Vui lòng chọn trong " +
+                                                        "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
+                                            }
+                                        }else{
+                                            Toast.makeText(getContext(), "Vui lòng chọn trong " +
+                                                    "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
+                                        }
+                                    } else if (date.get(Calendar.AM_PM) == 1) {
+                                        if(date.get(Calendar.HOUR) >= 1 && date.get(Calendar.HOUR) <= 5){
+//                                            if(date.get(Calendar.HOUR) < 6 && date.get(Calendar.MINUTE) < 1){
+                                                selectedDate = dayOfWeek + ", " + month +
+                                                        " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
+                                                selectedTime =
+                                                        convertTime(date.get(Calendar.HOUR)) + ":" + convertTime(date.get(Calendar.MINUTE)) + " " + AM_PM;
+                                                tvDateTime.setText(selectedDate + "\n" + selectedTime);
+//                                            }else{
+//                                                Toast.makeText(getContext(), "Vui lòng chọn trong " +
+//                                                        "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
+//                                            }
+                                        }else{
+                                            Toast.makeText(getContext(), "Vui lòng chọn trong " +
+                                                    "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
+                                        }
+                                    }
+                                }else {
+                                    Toast.makeText(getContext(), "Ngày đã chọn không phù hợp",
+                                            Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), "Vui lòng chọn lịch cách 2 ngày " +
+                                                    "so với ngày hiện tại!",
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }else if(monthOfYear > currentDate.get(Calendar.MONTH)){
+                                if(date.get(Calendar.AM_PM) == 0){
+                                    if(date.get(Calendar.HOUR) >= 7 && date.get(Calendar.HOUR) <= 11){
+//                                        if(date.get(Calendar.HOUR) < 12 && date.get(Calendar.MINUTE) < 1){
+                                            selectedDate = dayOfWeek + ", " + month +
+                                                    " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
+                                            selectedTime =
+                                                    date.get(Calendar.HOUR) + ":" + date.get(Calendar.MINUTE) + " " + AM_PM;
+                                            tvDateTime.setText(selectedDate + "\n" + selectedTime);
+//                                        }else{
+//                                            Toast.makeText(getContext(), "Vui lòng chọn trong " +
+//                                                    "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
+//                                        }
+                                    }else{
+                                        Toast.makeText(getContext(), "Vui lòng chọn trong " +
+                                                "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
+                                    }
+                                } else if (date.get(Calendar.AM_PM) == 1) {
+                                    if(date.get(Calendar.HOUR) >= 1 && date.get(Calendar.HOUR) <= 5){
+                                        if(date.get(Calendar.HOUR) < 6 && date.get(Calendar.MINUTE) < 1){
+                                            selectedDate = dayOfWeek + ", " + month +
+                                                    " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
+                                            selectedTime =
+                                                    convertTime(date.get(Calendar.HOUR)) + ":" + convertTime(date.get(Calendar.MINUTE)) + " " + AM_PM;
+                                            tvDateTime.setText(selectedDate + "\n" + selectedTime);
+                                        }else{
+                                            Toast.makeText(getContext(), "Vui lòng chọn trong " +
+                                                    "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
+                                        }
+                                    }else{
+                                        Toast.makeText(getContext(), "Vui lòng chọn trong " +
+                                                "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
+                                    }
+                                }
+                            }else{
+                                Toast.makeText(getContext(), "Tháng đã chọn không phù hợp",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(getContext(), "Năm đã chọn không phù hợp",
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+
                     }
                 }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), false).show();
             }
         }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
+    }
+    //Add "0" before value of hour and minute if < 10
+    public String convertTime(int input) {
+        if (input >= 10) {
+            return String.valueOf(input);
+        } else {
+            return "0" + String.valueOf(input);
+        }
     }
     public void loadDataFromFirebase(){
 
