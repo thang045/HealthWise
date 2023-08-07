@@ -151,6 +151,7 @@ public class AppointmentFragment extends Fragment {
                                 selectedTime + " " + selectedDate,
                                 idDoctor, idUser);
                         appointmentsRef.child("Appointment_" + (appointmentArrayList.size() + 1)).setValue(appointment);
+                        Toast.makeText(getContext(),"Appointment added!", Toast.LENGTH_SHORT).show();
                     }catch (Exception e){
                         Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                     }
@@ -210,41 +211,41 @@ public class AppointmentFragment extends Fragment {
                         }
 
                         //Month
-                        switch (date.get(Calendar.DAY_OF_MONTH)){
-                            case 1:
+                        switch (date.get(Calendar.MONTH)){
+                            case 0:
                                 month = "January";
                                 break;
-                            case 2:
+                            case 1:
                                 month = "February";
                                 break;
-                            case 3:
+                            case 2:
                                 month = "March";
                                 break;
-                            case 4:
+                            case 3:
                                 month = "April";
                                 break;
-                            case 5:
+                            case 4:
                                 month = "May";
                                 break;
-                            case 6:
+                            case 5:
                                 month = "June";
                                 break;
-                            case 7:
+                            case 6:
                                 month = "July";
                                 break;
-                            case 8:
+                            case 7:
                                 month = "August";
                                 break;
-                            case 9:
+                            case 8:
                                 month = "September";
                                 break;
-                            case 10:
+                            case 9:
                                 month = "October";
                                 break;
-                            case 11:
+                            case 10:
                                 month = "November";
                                 break;
-                            case 12:
+                            case 11:
                                 month = "December";
                                 break;
                             default:
@@ -270,6 +271,7 @@ public class AppointmentFragment extends Fragment {
                         selectedTime =
                                 date.get(Calendar.HOUR) + ":" + date.get(Calendar.MINUTE) + " " + AM_PM;
                         tvDateTime.setText(selectedDate + "\n" + selectedTime);
+
                     }
                 }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), false).show();
             }
