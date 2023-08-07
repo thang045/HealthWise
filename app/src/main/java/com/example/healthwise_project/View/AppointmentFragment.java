@@ -135,7 +135,7 @@ public class AppointmentFragment extends Fragment {
                 String name = edtName_Appointment.getText().toString();
 
                 String phone = "";
-                Pattern p = Pattern.compile("09[1-9]{8}");
+                Pattern p = Pattern.compile("0[0-9]{9}");
                 Matcher m = p.matcher(edtPhone_Appointment.getText());
                 if (m.matches()){
                     phone = edtPhone_Appointment.getText().toString();
