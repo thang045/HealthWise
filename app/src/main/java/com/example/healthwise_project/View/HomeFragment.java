@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.healthwise_project.Model.Appointment;
 import com.example.healthwise_project.Model.HealthRecordClass;
 import com.example.healthwise_project.Model.User;
 import com.example.healthwise_project.R;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    String userName, dateTime, sympton;
+    String userName;
     TextView tvRetrieveName, tvRetrieveTime, tvRetrieveSympton;
     TextView tvUpcomingAppointment, tvDoctor, tvTime;
     FirebaseAuth auth;
@@ -104,7 +103,7 @@ public class HomeFragment extends Fragment {
 
         if (firebaseUser1 != null)
         {
-            showUserProfile(firebaseUser1);
+            showUsername(firebaseUser1);
             getAppointmentQuantity(firebaseUser1);
             getTheNextAppointment(firebaseUser1);
         }
@@ -126,9 +125,9 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public  void showUserProfile(FirebaseUser firebaseUser)
+    public  void showUsername(FirebaseUser firebaseUser)
     {
-        //get Current User ID from Registered Users table
+        //get Current User ID from Registered Users record
         String userID = firebaseUser.getUid();
         myRef = FirebaseDatabase.getInstance(
                         "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
