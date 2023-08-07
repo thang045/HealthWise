@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/hilltops_mountains"
     tools:context=".View.AppointmentFragment">
 
     <LinearLayout
@@ -62,6 +63,7 @@
                 android:gravity="center_horizontal"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:textSize="18sp"
                 android:text="Name:" />
 
             <EditText
@@ -71,7 +73,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="text"
+                android:textSize="18sp"
                 android:hint="Daniel"
+                android:gravity="center"
                 android:textColorHint="#ACACAC"/>
         </LinearLayout>
 
@@ -90,6 +94,7 @@
                 android:gravity="center_horizontal"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:textSize="18sp"
                 android:text="Phone:" />
 
             <EditText
@@ -100,6 +105,8 @@
                 android:ems="10"
                 android:inputType="text"
                 android:hint = "Phone number"
+                android:textSize="18sp"
+                android:gravity="center"
                 android:textColorHint="#ACACAC"/>
         </LinearLayout>
 
@@ -118,6 +125,7 @@
                 android:gravity="center_horizontal"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:textSize="18sp"
                 android:text="Symptoms:" />
 
             <EditText
@@ -128,6 +136,8 @@
                 android:ems="10"
                 android:inputType="text"
                 android:hint="Symptoms description"
+                android:textSize="18sp"
+                android:gravity="center"
                 android:textColorHint="#ACACAC"/>
         </LinearLayout>
 
