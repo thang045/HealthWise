@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment {
                 healthRecordClassArrayList = new ArrayList<HealthRecordClass>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-                    if(dataSnapshot.child("idUser").getValue().toString().equals(userID));
+                    if(dataSnapshot.child("idUser").getValue().toString().equals(userID))
                     {
                         String datetime = dataSnapshot.child("datetime").getValue().toString();
                         String symptoms = dataSnapshot.child("symptoms").getValue().toString();
