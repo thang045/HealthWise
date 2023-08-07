@@ -1,0 +1,26 @@
+[33mfed902b[m[33m ([m[1;36mHEAD -> [m[1;32mkien[m[33m, [m[1;31morigin/kien[m[33m)[m ongoing
+[33m910d681[m Custom LV ...
+[33m9b77f8c[m completely done for appointment class
+[33m2e9fe63[m done appointment class
+[33m1bdee79[m adding all gradle files into gitignore
+[33ma3ecfc9[m deleting Toast in switch another fragment
+[33m6a0cea7[m adding fileHashes.lock file
+[33m6be4160[m Merge branch 'kevin' into kien
+[33m1d3549a[m pendind adapter
+[33m8680898[m "add app-check firebase realtime"
+[33mfb8b4fa[m "add app-check firebase realtime"
+[33m4a5a852[m Merge branch 'kevin' into kien
+[33m2349599[m add gradle files
+[33mbc0826e[m branch kien init
+[33mace4f02[m adjust gitignore file and doing UI for home
+[33mb728f15[m adding Thang's emulator
+[33mea2edaa[m Dang lam UploadUserAvatar + Test Appointment de lam HealthRecord
+[33mf180133[m done sign up
+[33m05f27c8[m fix
+[33m7588038[m connecting firebase completed
+[33m960d0d9[m deleting health record fragment and adding history fragment
+[33meb12e79[m changing icon HealthWise app
+[33m55ebd6d[m add readme file
+[33m28b120e[m adding all of fragment and toast for each fragment
+[33m5fea448[m Create README.md
+[33m9edd2a2[m create bottom navigation bar

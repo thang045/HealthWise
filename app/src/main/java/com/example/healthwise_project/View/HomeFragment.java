@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.healthwise_project.Model.Appointment;
+import com.example.healthwise_project.Model.HealthRecordClass;
 import com.example.healthwise_project.Model.User;
 import com.example.healthwise_project.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +40,7 @@ public class HomeFragment extends Fragment {
     FirebaseAuth auth;
     DatabaseReference myRef;
     Button btnViewAppointment;
-
+    ArrayList<HealthRecordClass> healthRecordClassArrayList;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -172,21 +175,22 @@ public class HomeFragment extends Fragment {
         myRef = FirebaseDatabase.getInstance("https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Appointments");
 
-//        Query query = myRef.orderByChild("idUser").equalTo(userID);
-
-        myRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Appointment appointment = snapshot.getValue(Appointment.class);
-//                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-//                    appointment = childSnapshot.getValue(Appointment.class);
-//                }
-                if (appointment != null) {
-                    dateTime = appointment.getDatetime();
-                    sympton = appointment.getSymptoms();
+                healthRecordClassArrayList = new ArrayList<HealthRecordClass>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    if(dataSnapshot.child("idUser").getValue().toString().equals(userID));
+                    {
+                        String datetime = dataSnapshot.child("datetime").getValue().toString();
+                        String symptoms = dataSnapshot.child("symptoms").getValue().toString();
+                        HealthRecordClass newestData = new HealthRecordClass(datetime,symptoms);
+                        healthRecordClassArrayList.add(newestData);
 
-                    tvRetrieveTime.setText(dateTime);
-                    tvRetrieveSympton.setText(sympton);
+                        tvRetrieveTime.setText(datetime);
+                        tvRetrieveSympton.setText(symptoms);
+                    }
                 }
             }
 

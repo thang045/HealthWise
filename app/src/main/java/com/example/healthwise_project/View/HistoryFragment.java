@@ -1,13 +1,47 @@
 package com.example.healthwise_project.View;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.example.healthwise_project.Controller.CustomAdapterHealthRecord;
+import com.example.healthwise_project.Controller.DetailAppointment;
+import com.example.healthwise_project.Controller.HealthRecord;
+import com.example.healthwise_project.Controller.customAdapterApp;
+import com.example.healthwise_project.Model.Appointment;
+import com.example.healthwise_project.Model.Doctor;
+import com.example.healthwise_project.Model.HealthRecordClass;
+import com.example.healthwise_project.Model.HistoryAppointment;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.example.healthwise_project.R;
 
@@ -17,10 +51,18 @@ import com.example.healthwise_project.R;
  * create an instance of this fragment.
  */
 public class HistoryFragment extends Fragment {
-    String time[] ={"12h","10h","11h" };
-    String date[] = {"1", "2", "3"};
-    String doctors[] = {"Kien","Thinh", "THang"};
+
+    customAdapterApp adapter;
+    ArrayList<HistoryAppointment> HisAppointmentList = new ArrayList<>();
     ListView lvHistory;
+
+    String nameDoctor;
+
+    String idDoc;
+
+    int idApp;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -62,12 +104,134 @@ public class HistoryFragment extends Fragment {
 
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
-//        lvHistory = (ListView) ;
+
+        lvHistory = (ListView) view.findViewById(R.id.lvAppLog);
+
+
+        loadDb();
+
+        DatabaseReference appointmentRef = FirebaseDatabase.getInstance(
+                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Appointments");
+
+        appointmentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Appointment appointment = dataSnapshot.getValue(Appointment.class);
+                    idApp = appointment.getId();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        lvHistory.setClickable(true);
+        lvHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), DetailAppointment.class);
+                intent.putExtra("id", idApp);
+                startActivity(intent);
+            }
+        });
+
         return view;
+
     }
+
+    public void loadDb(){
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        //assert firebaseUser != null;
+        String userID = firebaseUser.getUid();
+        DatabaseReference appointmentRef = FirebaseDatabase.getInstance(
+                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Appointments");
+
+
+        appointmentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    if(dataSnapshot.child("idUser").getValue().toString().equals(userID))
+                    {
+                        String datetime = dataSnapshot.child("datetime").getValue().toString();
+                        //int idDoc = Integer.parseInt(dataSnapshot.child("idDoctor").getValue().toString());
+                        idDoc = dataSnapshot.child("idDoctor").getValue().toString();
+                        changeToDoctorName1(idDoc, new DoctorNameCallback() {
+                            @Override
+                            public void onDoctorNameRetrieved(String doctorName) {
+                                System.out.println(doctorName + " ten ngoai IF");
+                                HistoryAppointment data = new HistoryAppointment(datetime, nameDoctor);
+                                HisAppointmentList = new ArrayList<HistoryAppointment>();
+                                HisAppointmentList.add(data);
+
+                                adapter = new customAdapterApp(getActivity(),HisAppointmentList);
+                                lvHistory.setAdapter(adapter);
+                                lvHistory.setClickable(true);
+                            }
+                        });
+                    }
+                }
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
+        });
+
+    }
+    public interface DoctorNameCallback {
+        void onDoctorNameRetrieved(String doctorName);
+    }
+
+    public void changeToDoctorName1(String id, DoctorNameCallback calback){
+        //final String[] result = {""};
+        DatabaseReference doctorRef = FirebaseDatabase.getInstance(
+                        "https://healthwise-project-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Doctors");
+        doctorRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    if(dataSnapshot.child("id").getValue().toString().equals(id)){
+                        Doctor d = dataSnapshot.getValue(Doctor.class);
+                        nameDoctor = d.getName();
+                        System.out.println(nameDoctor+ " ten trong IF");
+
+                        calback.onDoctorNameRetrieved(nameDoctor);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        System.out.println(nameDoctor+ " ten ngoai IF");
+    }
+
+
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
 }

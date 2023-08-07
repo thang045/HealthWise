@@ -1,10 +1,18 @@
 package com.example.healthwise_project.Model;
 
+
+import com.google.type.DateTime;
+
+import java.lang.reflect.Array;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Appointment {
-    int id;
-    int idDoctor ;
-    String name, phone, symptoms,idUser;
-    String datetime;
+    public int idDoctor,id;
+    public String name, phone, symptoms,idUser;
+    public String datetime;
 
     public String getIdUser() {
         return idUser;
