@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,6 +102,7 @@ public class SignUpFragment extends Fragment {
                 String email, password;
                 email = String.valueOf(edtUS2.getText());
                 password = String.valueOf(edtPW2.getText());
+
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>()
                         {
