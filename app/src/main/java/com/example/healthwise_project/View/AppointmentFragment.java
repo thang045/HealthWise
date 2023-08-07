@@ -277,20 +277,25 @@ public class AppointmentFragment extends Fragment {
                         Log.d("cDay", "" + currentDate.get(Calendar.DAY_OF_MONTH));
 
                         if(date.get(Calendar.YEAR) >= currentDate.get(Calendar.YEAR)){
+
                             if(date.get(Calendar.MONTH) == currentDate.get(Calendar.MONTH)){
+
                                 if(date.get(Calendar.DAY_OF_MONTH) - currentDate.get(Calendar.DAY_OF_MONTH) >= 2){
+
                                     if(date.get(Calendar.AM_PM) == 0){
+
                                         if(date.get(Calendar.HOUR) >= 7 && date.get(Calendar.HOUR) <= 11){
-                                            if(date.get(Calendar.HOUR) < 12 && date.get(Calendar.MINUTE) < 1){
+
+//                                            if(date.get(Calendar.HOUR) < 12 && date.get(Calendar.MINUTE) < 1){
                                                 selectedDate = dayOfWeek + ", " + month +
                                                         " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
                                                 selectedTime =
                                                         convertTime(date.get(Calendar.HOUR)) + ":" + convertTime(date.get(Calendar.MINUTE)) + " " + AM_PM;
                                                 tvDateTime.setText(selectedDate + "\n" + selectedTime);
-                                            }else{
-                                                Toast.makeText(getContext(), "Vui lòng chọn trong " +
-                                                        "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
-                                            }
+//                                            }else{
+//                                                Toast.makeText(getContext(), "Vui lòng chọn trong " +
+//                                                        "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
+//                                            }
                                         }else{
                                             Toast.makeText(getContext(), "Vui lòng chọn trong " +
                                                     "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
@@ -338,16 +343,16 @@ public class AppointmentFragment extends Fragment {
                                     }
                                 } else if (date.get(Calendar.AM_PM) == 1) {
                                     if(date.get(Calendar.HOUR) >= 1 && date.get(Calendar.HOUR) <= 5){
-                                        if(date.get(Calendar.HOUR) < 6 && date.get(Calendar.MINUTE) < 1){
+//                                        if(date.get(Calendar.HOUR) < 6 && date.get(Calendar.MINUTE) < 1){
                                             selectedDate = dayOfWeek + ", " + month +
                                                     " " + date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.YEAR);
                                             selectedTime =
                                                     convertTime(date.get(Calendar.HOUR)) + ":" + convertTime(date.get(Calendar.MINUTE)) + " " + AM_PM;
                                             tvDateTime.setText(selectedDate + "\n" + selectedTime);
-                                        }else{
-                                            Toast.makeText(getContext(), "Vui lòng chọn trong " +
-                                                    "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
-                                        }
+//                                        }else{
+//                                            Toast.makeText(getContext(), "Vui lòng chọn trong " +
+//                                                    "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
+//                                        }
                                     }else{
                                         Toast.makeText(getContext(), "Vui lòng chọn trong " +
                                                 "khung giờ 7-11am và 1-5pm!", Toast.LENGTH_LONG);
